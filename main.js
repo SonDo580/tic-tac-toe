@@ -1,3 +1,27 @@
+// Suggestions
+// const PlayerFactory = (name, marker)=>{
+//     // do something to set up the player
+//   }
+//   const Game = (()=>{
+//     // Here, we have *instances*:
+//     const p1 = PlayerFactory('Player 1','X');
+//     const p2 = PlayerFactory('Player 2','O');
+//     const currentPlayer = p1;
+//     const GameBoard = (()=>{
+//       // we define modules within the desired
+//       //  domain, thus making all parts accessible
+//       //  to the Game itself!    
+//     })();
+//     const displayController = (()=>{
+//       // we can, if we like, pass arguments in.
+//       // Here, we wire #tictactoe-container to
+//       //  its events
+//     })();
+  
+//     // in here, we can talk to each piece, and
+//     //  define any interctions as we like.
+//   })();
+
 const SIDE = 10;    // the number of squares per side of the board
 
 const gameBoard = (() => {
