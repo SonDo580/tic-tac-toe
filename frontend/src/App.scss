@@ -1,0 +1,23 @@
+$side: 16;
+$borderColor: blue;
+
+.board {
+  display: grid;
+  grid-template-columns: repeat($side, 1fr);
+  grid-template-rows: repeat($side, 1fr);
+
+  width: 500px;
+  aspect-ratio: 1 / 1;
+  margin: auto;
+  border: 1px solid $borderColor;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid $borderColor;
+  font-weight: bold;
+  font-size: x-large;
+}

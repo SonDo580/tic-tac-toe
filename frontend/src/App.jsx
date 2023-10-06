@@ -1,7 +1,13 @@
-import "./App.css";
+import { MarkProvider } from "@/context/MarkContext";
+import Board from "@/components/Board";
+import "./App.scss";
 
 function App() {
-  return <div>App</div>;
+  return (
+    <MarkProvider>
+      <Board />
+    </MarkProvider>
+  );
 }
 
 export default App;
