@@ -5,4 +5,11 @@ const MARK = {
 
 const SIDE = 16;
 
-export { MARK, SIDE };
+const DIRECTION = {
+  horizontal: "horizontal",
+  vertical: "vertical",
+  northwest_southeast: "northwest_southeast",
+  northeast_southwest: "northeast_southwest",
+};
+
+export { MARK, SIDE, DIRECTION };
