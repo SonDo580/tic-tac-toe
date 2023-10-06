@@ -1,4 +1,4 @@
-import { SIDE } from "@/constants";
+import { SIDE, DIRECTION } from "@/constants";
 
 const countHorizontal = (board, row, column, mark) => {
   let markNumber = 1;
@@ -94,10 +94,10 @@ const countNorthEast_SouthWest = (board, row, column, mark) => {
 
 const countAllDirections = (...args) => {
   const markCount = {
-    horizontal: countHorizontal(...args),
-    vertical: countVertical(...args),
-    northwest_southeast: countNorthWest_SouthEast(...args),
-    northeast_southwest: countNorthEast_SouthWest(...args),
+    [DIRECTION.horizontal]: countHorizontal(...args),
+    [DIRECTION.vertical]: countVertical(...args),
+    [DIRECTION.northwest_southeast]: countNorthWest_SouthEast(...args),
+    [DIRECTION.northeast_southwest]: countNorthEast_SouthWest(...args),
   };
 
   return markCount;
