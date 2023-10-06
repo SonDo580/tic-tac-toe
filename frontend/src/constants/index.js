@@ -1,9 +1,10 @@
+const SIDE = 16;
+const WIN_COUNT = 5;
+
 const MARK = {
   X: "X",
   O: "O",
 };
-
-const SIDE = 16;
 
 const DIRECTION = {
   horizontal: "horizontal",
@@ -12,4 +13,4 @@ const DIRECTION = {
   northeast_southwest: "northeast_southwest",
 };
 
-export { MARK, SIDE, DIRECTION };
+export { MARK, SIDE, DIRECTION, WIN_COUNT };

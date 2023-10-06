@@ -1,4 +1,4 @@
-import { SIDE, DIRECTION } from "@/constants";
+import { SIDE, DIRECTION, WIN_COUNT } from "@/constants";
 import { countAllDirections } from "./counter";
 
 const highlightHorizontal = (board, row, column, mark) => {
@@ -113,7 +113,7 @@ const getHighlightCells = (...args) => {
   const markCount = countAllDirections(...args);
 
   for (const [direction, count] of Object.entries(markCount)) {
-    if (count < 5) {
+    if (count < WIN_COUNT) {
       continue;
     }
     highlightCells.push(...hightLightDirection(direction, ...args));
