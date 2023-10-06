@@ -1,4 +1,5 @@
 import { Fragment, useContext, useState } from "react";
+import { produce } from "immer";
 
 import { MarkContext } from "@/context/MarkContext";
 import { SIDE } from "@/constants";
@@ -19,17 +20,8 @@ export default function Board() {
 
   const updateBoard = (rowIndex, colIndex) => {
     setBoard((prevBoard) =>
-      prevBoard.map((row, i) => {
-        if (i !== rowIndex) {
-          return row;
-        }
-
-        return row.map((cell, j) => {
-          if (j !== colIndex) {
-            return cell;
-          }
-          return mark;
-        });
+      produce(prevBoard, (draft) => {
+        draft[rowIndex][colIndex] = mark;
       })
     );
 
