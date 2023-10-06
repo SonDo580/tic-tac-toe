@@ -1,7 +1,7 @@
 import { createContext, useCallback, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 
-import { MARK } from "@/constants/mark";
+import { MARK } from "@/constants";
 
 const MarkContext = createContext();
 
