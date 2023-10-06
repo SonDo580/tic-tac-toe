@@ -8,11 +8,16 @@ const COLOR_CLASS = {
 
 const getColorClass = (mark) => COLOR_CLASS[mark] || "";
 
-export default function Cell({ mark, row, col, handleClick }) {
+const getHighlightClass = (highlight) => (highlight ? "highlight" : "");
+
+const getCellClass = (mark, highlight) =>
+  `cell ${getColorClass(mark)} ${getHighlightClass(highlight)}`;
+
+export default function Cell({ mark, highlight, row, col, handleClick }) {
   const selectCell = () => handleClick(row, col);
 
   return (
-    <div className={`cell ${getColorClass(mark)}`} onClick={selectCell}>
+    <div className={getCellClass(mark, highlight)} onClick={selectCell}>
       {mark}
     </div>
   );
@@ -20,10 +25,12 @@ export default function Cell({ mark, row, col, handleClick }) {
 
 Cell.defaultProps = {
   mark: "",
+  highlight: false,
 };
 
 Cell.propTypes = {
   mark: PropTypes.string,
+  highlight: PropTypes.bool,
   row: PropTypes.number.isRequired,
   col: PropTypes.number.isRequired,
   handleClick: PropTypes.func.isRequired,
