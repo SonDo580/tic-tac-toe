@@ -28,6 +28,10 @@ export default function Board() {
   const updateBoard = (rowIndex, colIndex) => {
     setBoard((prevBoard) =>
       produce(prevBoard, (draft) => {
+        if (draft[rowIndex][colIndex] !== "") {
+          return;
+        }
+
         draft[rowIndex][colIndex] = mark;
 
         const updatedBoard = getUpdatedBoard(board, rowIndex, colIndex, mark);
