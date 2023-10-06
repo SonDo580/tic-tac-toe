@@ -119,6 +119,11 @@ const getHighlightCells = (...args) => {
     highlightCells.push(...hightLightDirection(direction, ...args));
   }
 
+  const [, rowIndex, colIndex] = args;
+  if (highlightCells.length > 0) {
+    highlightCells.push(`${rowIndex}-${colIndex}`);
+  }
+
   return highlightCells;
 };
 
