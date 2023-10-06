@@ -1,8 +1,8 @@
 import { Fragment, useContext, useState } from "react";
 import { produce } from "immer";
 
-import { MarkContext } from "@/context/MarkContext";
 import { SIDE } from "@/constants";
+import { MarkContext } from "@/context/MarkContext";
 import { getHighlightCells } from "@/utils/highlighter";
 import Cell from "@/components/Cell";
 
@@ -15,6 +15,11 @@ const createBoard = () => {
   return board;
 };
 
+const getUpdatedBoard = (board, rowIndex, colIndex, mark) =>
+  produce(board, (draft) => {
+    draft[rowIndex][colIndex] = mark;
+  });
+
 export default function Board() {
   const [board, setBoard] = useState(createBoard);
   const { mark, switchMark } = useContext(MarkContext);
@@ -25,7 +30,8 @@ export default function Board() {
       produce(prevBoard, (draft) => {
         draft[rowIndex][colIndex] = mark;
 
-        const cells = getHighlightCells(draft, rowIndex, colIndex, mark);
+        const updatedBoard = getUpdatedBoard(board, rowIndex, colIndex, mark);
+        const cells = getHighlightCells(updatedBoard, rowIndex, colIndex, mark);
         if (cells.length > 0) {
           setHighlightCells(cells);
         }
