@@ -1,5 +1,5 @@
 $side: 16;
-$borderColor: blue;
+$borderColor: gray;
 
 .board {
   display: grid;
@@ -20,4 +20,16 @@ $borderColor: blue;
   border: 1px solid $borderColor;
   font-weight: bold;
   font-size: x-large;
+
+  &.x {
+    color: red;
+  }
+
+  &.o {
+    color: blue;
+  }
+
+  &.highlight {
+    background-color: yellow;
+  }
 }
