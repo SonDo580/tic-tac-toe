@@ -13,7 +13,7 @@ const MarkProvider = ({ children }) => {
   }, []);
 
   const contextValue = useMemo(
-    () => ({ mark, switchMark }),
+    () => ({ mark, setMark, switchMark }),
     [mark, switchMark]
   );
 
