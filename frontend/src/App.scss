@@ -20,6 +20,7 @@ $borderColor: gray;
   border: 1px solid $borderColor;
   font-weight: bold;
   font-size: x-large;
+  cursor: pointer;
 
   &.x {
     color: red;
