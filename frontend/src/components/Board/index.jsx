@@ -1,6 +1,7 @@
 import { Fragment, useContext, useState } from "react";
 import { produce } from "immer";
 
+import { GameContext } from "@/context/GameContext";
 import { MarkContext } from "@/context/MarkContext";
 import { BoardContext } from "@/context/BoardContext";
 import { getHighlightCells } from "@/utils/highlighter";
@@ -8,6 +9,7 @@ import { getUpdatedBoard } from "@/utils/board";
 import Cell from "@/components/Cell";
 
 export default function Board() {
+  const { incrementMoveCount, setEndGame } = useContext(GameContext);
   const { board, setBoard } = useContext(BoardContext);
   const { mark, switchMark } = useContext(MarkContext);
   const [highlightCells, setHighlightCells] = useState([]);
@@ -20,6 +22,7 @@ export default function Board() {
         }
 
         draft[rowIndex][colIndex] = mark;
+        incrementMoveCount();
 
         const updatedBoard = getUpdatedBoard(
           prevBoard,
@@ -31,6 +34,7 @@ export default function Board() {
         const cells = getHighlightCells(updatedBoard, rowIndex, colIndex, mark);
         if (cells.length > 0) {
           setHighlightCells(cells);
+          setEndGame(true);
         }
       })
     );
