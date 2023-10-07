@@ -23,7 +23,7 @@ const MarkProvider = ({ children }) => {
 };
 
 MarkProvider.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.node,
 };
 
 export { MarkContext, MarkProvider };
