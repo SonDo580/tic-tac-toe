@@ -4,12 +4,8 @@ import { produce } from "immer";
 import { MarkContext } from "@/context/MarkContext";
 import { BoardContext } from "@/context/BoardContext";
 import { getHighlightCells } from "@/utils/highlighter";
+import { getUpdatedBoard } from "@/utils/board";
 import Cell from "@/components/Cell";
-
-const getUpdatedBoard = (board, rowIndex, colIndex, mark) =>
-  produce(board, (draft) => {
-    draft[rowIndex][colIndex] = mark;
-  });
 
 export default function Board() {
   const { board, setBoard } = useContext(BoardContext);

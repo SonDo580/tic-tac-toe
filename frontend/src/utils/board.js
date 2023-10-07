@@ -1,3 +1,4 @@
+import { produce } from "immer";
 import { SIDE } from "@/constants";
 
 const createBoard = () => {
@@ -9,4 +10,9 @@ const createBoard = () => {
   return board;
 };
 
-export { createBoard };
+const getUpdatedBoard = (board, rowIndex, colIndex, mark) =>
+  produce(board, (draft) => {
+    draft[rowIndex][colIndex] = mark;
+  });
+
+export { createBoard, getUpdatedBoard };
