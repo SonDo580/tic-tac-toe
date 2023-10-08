@@ -9,12 +9,16 @@ import { getUpdatedBoard } from "@/utils/board";
 import Cell from "@/components/Cell";
 
 export default function Board() {
-  const { incrementMoveCount, setEndGame } = useContext(GameContext);
+  const { endGame, incrementMoveCount, setEndGame } = useContext(GameContext);
   const { board, setBoard } = useContext(BoardContext);
   const { mark, switchMark } = useContext(MarkContext);
   const [highlightCells, setHighlightCells] = useState([]);
 
   const updateBoard = (rowIndex, colIndex) => {
+    if (endGame) {
+      return;
+    }
+
     setBoard((prevBoard) =>
       produce(prevBoard, (draft) => {
         if (draft[rowIndex][colIndex] !== "") {
