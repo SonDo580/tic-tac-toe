@@ -1,10 +1,9 @@
-const express = require("express");
-const http = require("node:http");
-
-const runSocketIO = require("./socket");
+import express from "express";
+import { createServer } from "node:http";
+import runSocketIO from "./socket";
 
 const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
 runSocketIO(server);
 
 const PORT = process.env.PORT || 5000;
