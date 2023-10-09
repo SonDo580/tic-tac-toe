@@ -1,4 +1,4 @@
-import { SIDE } from "../constants";
+import { SIDE } from "../constants.js";
 
 const createBoard = () => {
   const board = [];

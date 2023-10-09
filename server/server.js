@@ -1,6 +1,6 @@
 import express from "express";
 import { createServer } from "node:http";
-import runSocketIO from "./socket";
+import runSocketIO from "./socket.js";
 
 const app = express();
 const server = createServer(app);

@@ -1,4 +1,5 @@
 import { v4 as uuid } from "uuid";
+import { createBoard } from "./board.js";
 
 const createRoom = (playerId, playerName) => {
   const roomId = uuid();
