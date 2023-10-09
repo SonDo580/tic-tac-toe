@@ -1,23 +1,17 @@
-import { GameProvider } from "@/context/GameContext";
-import { MarkProvider } from "@/context/MarkContext";
-import { BoardProvider } from "@/context/BoardContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.scss";
-import Board from "@/components/Board";
-import ResetButton from "@/components/ResetButton";
+import Starter from "@/pages/Starter";
+import Game from "@/pages/Game";
 
 function App() {
   return (
-    <GameProvider>
-      <MarkProvider>
-        <BoardProvider>
-          <div>
-            <Board />
-            <ResetButton />
-          </div>
-        </BoardProvider>
-      </MarkProvider>
-    </GameProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Starter />} />
+        <Route path="/game" element={<Game />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
