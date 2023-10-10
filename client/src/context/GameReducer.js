@@ -4,6 +4,7 @@ const initialState = {
   roomId: null,
   board: null,
   players: null,
+  endGame: false,
 };
 
 const ACTION = {
@@ -18,6 +19,7 @@ const reducer = (state, action) =>
         draft.board = action.roomInfo.board;
         draft.players = action.roomInfo.players;
         break;
+
       default:
         break;
     }
