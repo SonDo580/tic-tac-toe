@@ -4,21 +4,34 @@ import { useNavigate } from "react-router-dom";
 import { socket } from "@/utils/socket";
 import { GameContext } from "@/context/GameContext";
 
+const nameErrorMessage =
+  "Name is required and must contains non-space characters";
+
 export default function CreateRoom() {
   const navigate = useNavigate();
   const { initGame } = useContext(GameContext);
-  const [name, setName] = useState("");
 
+  const [name, setName] = useState("");
+  const [nameError, setNameError] = useState("");
   const changeName = (event) => {
     setName(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (name.trim() === "") {
+      setNameError(nameErrorMessage);
+      return;
+    }
+    setNameError("");
     socket.emit("createRoom", name);
   };
 
   useEffect(() => {
+    socket.on("nameError", () => {
+      setNameError(nameErrorMessage);
+    });
+
     socket.on("roomCreated", (roomInfo) => {
       initGame(roomInfo);
       navigate("/game");
@@ -33,6 +46,7 @@ export default function CreateRoom() {
         value={name}
         onChange={changeName}
       />
+      <span>{nameError}</span>
       <button>Create Room</button>
     </form>
   );
