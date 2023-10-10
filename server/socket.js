@@ -16,6 +16,11 @@ const runSocketIO = (httpServer) => {
     const playerId = socket.id;
 
     socket.on("createRoom", (playerName) => {
+      if (playerName.trim() === "") {
+        socket.emit("nameError");
+        return;
+      }
+
       const firstPlayer = { playerId, playerName, mark: MARK.X };
       const room = createRoom(firstPlayer);
       rooms.push(room);
