@@ -1,53 +1,12 @@
-import { Fragment, useContext, useState } from "react";
-import { produce } from "immer";
+import { Fragment, useContext } from "react";
 
 import { GameContext } from "@/context/GameContext";
-import { MarkContext } from "@/context/MarkContext";
-import { BoardContext } from "@/context/BoardContext";
-import { getHighlightCells } from "@/utils/highlighter";
-import { getUpdatedBoard } from "@/utils/board";
 import Cell from "@/components/Cell";
 
 export default function Board() {
-  const { endGame, incrementMoveCount, setEndGame } = useContext(GameContext);
-  const { board, setBoard } = useContext(BoardContext);
-  const { mark, switchMark } = useContext(MarkContext);
-  const [highlightCells, setHighlightCells] = useState([]);
-
-  const updateBoard = (rowIndex, colIndex) => {
-    if (endGame) {
-      return;
-    }
-
-    setBoard((prevBoard) =>
-      produce(prevBoard, (draft) => {
-        if (draft[rowIndex][colIndex] !== "") {
-          return;
-        }
-
-        draft[rowIndex][colIndex] = mark;
-        incrementMoveCount();
-
-        const updatedBoard = getUpdatedBoard(
-          prevBoard,
-          rowIndex,
-          colIndex,
-          mark
-        );
-
-        const cells = getHighlightCells(updatedBoard, rowIndex, colIndex, mark);
-        if (cells.length > 0) {
-          setHighlightCells(cells);
-          setEndGame(true);
-        }
-      })
-    );
-
-    switchMark();
-  };
-
-  const shouldHighlight = (rowIndex, colIndex) =>
-    highlightCells.includes(`${rowIndex}-${colIndex}`);
+  const {
+    state: { board },
+  } = useContext(GameContext);
 
   return (
     <div className="board">
@@ -59,8 +18,8 @@ export default function Board() {
               mark={mark}
               row={i}
               col={j}
-              highlight={shouldHighlight(i, j)}
-              handleClick={updateBoard}
+              highlight={false}
+              handleClick={() => {}}
             />
           ))}
         </Fragment>
