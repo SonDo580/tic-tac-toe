@@ -25,14 +25,21 @@ export default function JoinRoom() {
 
   const formHasError = () => {
     let hasError = false;
+
     if (name.trim() === "") {
       setNameError(nameErrorMessage);
       hasError = true;
+    } else {
+      setNameError("");
     }
+
     if (roomID === "") {
       setRoomError(roomIdEmptyMessage);
       hasError = true;
+    } else {
+      setRoomError("");
     }
+
     return hasError;
   };
 
@@ -41,8 +48,6 @@ export default function JoinRoom() {
     if (formHasError()) {
       return;
     }
-    setNameError("");
-    setRoomError("");
     socket.emit("joinRoom", { playerName: name, roomID });
   };
 
