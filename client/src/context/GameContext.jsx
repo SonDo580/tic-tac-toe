@@ -1,6 +1,7 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 
+import { socket } from "@/utils/socket";
 import { ACTION, initialState, reducer } from "./GameReducer";
 
 const GameContext = createContext();
@@ -13,6 +14,12 @@ const GameProvider = ({ children }) => {
   };
 
   const contextValue = { state, initGame };
+
+  useEffect(() => {
+    socket.on("roomJoined", (roomInfo) => {
+      initGame(roomInfo);
+    });
+  }, []);
 
   return (
     <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>

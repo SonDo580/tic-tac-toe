@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { socket } from "@/utils/socket";
-import { GameContext } from "@/context/GameContext";
 
 const nameErrorMessage =
   "Name is required and must contains non-space characters";
@@ -12,7 +11,6 @@ const roomFullMessage = "Room was full";
 
 export default function JoinRoom() {
   const navigate = useNavigate();
-  const { initGame } = useContext(GameContext);
 
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
@@ -71,8 +69,7 @@ export default function JoinRoom() {
       setRoomError(roomFullMessage);
     });
 
-    socket.on("roomJoined", (roomInfo) => {
-      initGame(roomInfo);
+    socket.on("roomJoined", () => {
       navigate("/game");
     });
   }, []);
