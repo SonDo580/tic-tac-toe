@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { socket } from "@/utils/socket";
+import { GameContext } from "@/context/GameContext";
 
 const nameErrorMessage =
   "Name is required and must contains non-space characters";
-
 const roomIdEmptyMessage = "Room ID is required";
+const roomNotExistsMessage = "Room doesn't exist";
+const roomFullMessage = "Room was full";
 
 export default function JoinRoom() {
   const navigate = useNavigate();
+  const { initGame } = useContext(GameContext);
 
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
@@ -50,6 +53,29 @@ export default function JoinRoom() {
     }
     socket.emit("joinRoom", { playerName: name, roomID });
   };
+
+  useEffect(() => {
+    socket.on("nameError", () => {
+      setNameError(nameErrorMessage);
+    });
+
+    socket.on("roomIdEmpty", () => {
+      setRoomError(roomIdEmptyMessage);
+    });
+
+    socket.on("roomNotExists", () => {
+      setRoomError(roomNotExistsMessage);
+    });
+
+    socket.on("roomFull", () => {
+      setRoomError(roomFullMessage);
+    });
+
+    socket.on("roomJoined", (roomInfo) => {
+      initGame(roomInfo);
+      navigate("/game");
+    });
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
