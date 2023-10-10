@@ -1,13 +1,10 @@
 import { Server } from "socket.io";
 
-import { createRoom } from "./utils/room.js";
 import { MARK } from "./constants.js";
-
-const rooms = [];
-
-const allowOrigins = ["http://localhost:5173"]; // add live client URL later
+import { createRoom, rooms, searchRoom } from "./utils/room.js";
 
 const runSocketIO = (httpServer) => {
+  const allowOrigins = ["http://localhost:5173"]; // add live client URL later
   const io = new Server(httpServer, {
     cors: { origin: allowOrigins },
   });
@@ -25,6 +22,33 @@ const runSocketIO = (httpServer) => {
       const room = createRoom(firstPlayer);
       rooms.push(room);
       socket.emit("roomCreated", room);
+    });
+
+    socket.on("joinRoom", ({ playerName, roomID }) => {
+      if (playerName.trim() === "") {
+        socket.emit("nameError");
+        return;
+      }
+
+      if (roomID === "") {
+        socket.emit("roomIdEmpty");
+        return;
+      }
+
+      const room = searchRoom(roomID);
+      if (!room) {
+        socket.emit("roomNotExists");
+        return;
+      }
+
+      if (room.players.length === 2) {
+        socket.emit("roomFull");
+        return;
+      }
+
+      const secondPlayer = { playerId, playerName, mark: MARK.O };
+      room.players.push(secondPlayer);
+      socket.emit("roomJoined", room);
     });
   });
 };
