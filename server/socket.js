@@ -49,6 +49,9 @@ const runSocketIO = (httpServer) => {
       const secondPlayer = { playerId, playerName, mark: MARK.O };
       room.players.push(secondPlayer);
       socket.emit("roomJoined", room);
+
+      const firstPlayerId = room.players[0].playerId;
+      io.to(firstPlayerId).emit("roomJoined", room);
     });
   });
 };
