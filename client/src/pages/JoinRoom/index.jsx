@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
-
-const nameErrorMessage =
-  "Name is required and must contains non-space characters";
-const roomIdEmptyMessage = "Room ID is required";
-const roomNotExistsMessage = "Room doesn't exist";
-const roomFullMessage = "Room was full";
 
 export default function JoinRoom() {
   const navigate = useNavigate();
@@ -28,14 +23,14 @@ export default function JoinRoom() {
     let hasError = false;
 
     if (name.trim() === "") {
-      setNameError(nameErrorMessage);
+      setNameError(MESSAGE.nameError);
       hasError = true;
     } else {
       setNameError("");
     }
 
     if (roomID === "") {
-      setRoomError(roomIdEmptyMessage);
+      setRoomError(MESSAGE.roomIdEmpty);
       hasError = true;
     } else {
       setRoomError("");
@@ -54,19 +49,19 @@ export default function JoinRoom() {
 
   useEffect(() => {
     socket.on("nameError", () => {
-      setNameError(nameErrorMessage);
+      setNameError(MESSAGE.nameError);
     });
 
     socket.on("roomIdEmpty", () => {
-      setRoomError(roomIdEmptyMessage);
+      setRoomError(MESSAGE.roomIdEmpty);
     });
 
     socket.on("roomNotExists", () => {
-      setRoomError(roomNotExistsMessage);
+      setRoomError(MESSAGE.roomNotExists);
     });
 
     socket.on("roomFull", () => {
-      setRoomError(roomFullMessage);
+      setRoomError(MESSAGE.roomFull);
     });
 
     socket.on("roomJoined", () => {
