@@ -26,7 +26,7 @@ const joinRoomHandler =
       return;
     }
 
-    const room = searchRoom(roomID);
+    const { room } = searchRoom(roomID);
     if (!room) {
       socket.emit("roomNotExists");
       return;
