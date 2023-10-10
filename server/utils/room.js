@@ -1,10 +1,10 @@
 import { v4 as uuid } from "uuid";
 import { createBoard } from "./board.js";
 
-const createRoom = (playerId, playerName) => {
+const createRoom = (firstPlayer) => {
   const roomId = uuid();
   const board = createBoard();
-  const players = [{ playerId, playerName }];
+  const players = [firstPlayer];
 
   return {
     roomId,
