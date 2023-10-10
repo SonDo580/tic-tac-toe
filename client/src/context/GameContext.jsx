@@ -1,23 +1,18 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useReducer } from "react";
 import PropTypes from "prop-types";
 
-import { SIDE } from "@/constants";
+import { ACTION, initialState, reducer } from "./GameReducer";
 
 const GameContext = createContext();
 
 const GameProvider = ({ children }) => {
-  const [endGame, setEndGame] = useState(false);
-  const [moveCount, setMoveCount] = useState(0);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const incrementMoveCount = () => setMoveCount((count) => count + 1);
+  const initGame = (roomInfo) => {
+    dispatch({ type: ACTION.INIT_GAME, roomInfo });
+  };
 
-  useEffect(() => {
-    if (moveCount === SIDE * SIDE) {
-      setEndGame(true);
-    }
-  }, [moveCount]);
-
-  const contextValue = { incrementMoveCount, endGame, setEndGame };
+  const contextValue = { state, initGame };
 
   return (
     <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>
