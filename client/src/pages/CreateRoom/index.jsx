@@ -21,10 +21,7 @@ export default function CreateRoom() {
   useEffect(() => {
     socket.on("roomCreated", (roomInfo) => {
       initGame(roomInfo);
-      navigate({
-        pathname: "/game",
-        search: `?room=${roomInfo.roomId}`,
-      });
+      navigate("/game");
     });
   }, []);
 
