@@ -21,4 +21,12 @@ const searchRoom = (roomId) => {
   return { room, roomIndex };
 };
 
-export { rooms, createRoom, searchRoom };
+const searchRoomByPlayer = (playerId) => {
+  const roomIndex = rooms.findIndex((r) =>
+    r.players.some((p) => p.playerId === playerId)
+  );
+  const room = roomIndex !== -1 ? rooms[roomIndex] : undefined;
+  return { room, roomIndex };
+};
+
+export { rooms, createRoom, searchRoom, searchRoomByPlayer };
