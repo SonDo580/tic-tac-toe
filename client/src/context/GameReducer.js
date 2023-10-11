@@ -9,6 +9,7 @@ const initialState = {
 
 const ACTION = {
   INIT_GAME: "INIT_GAME",
+  RESET_GAME: "RESET_GAME",
 };
 
 const reducer = (state, action) =>
@@ -19,6 +20,9 @@ const reducer = (state, action) =>
         draft.board = action.roomInfo.board;
         draft.players = action.roomInfo.players;
         break;
+
+      case ACTION.RESET_GAME:
+        return initialState;
 
       default:
         break;
