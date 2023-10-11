@@ -45,4 +45,79 @@ const joinRoomHandler =
     io.to(firstPlayerId).emit("roomJoined", room);
   };
 
-export { createRoomHandler, joinRoomHandler };
+const leaveRoomHandler =
+  ({ socket, io }) =>
+  (roomId) => {
+    const playerId = socket.id;
+    const { roomIndex, room } = searchRoom(roomId);
+    if (roomIndex === -1) {
+      return;
+    }
+
+    // Remove player from room
+    room.players = room.players.filter(
+      (player) => player.playerId !== playerId
+    );
+    socket.emit("roomLeaved");
+
+    // Remove room if there's no players left
+    if (room.players.length === 0) {
+      rooms.splice(roomIndex, 1);
+      return;
+    }
+
+    // Reset board
+    room.board = createBoard();
+
+    // Switch mark for the other player if needed
+    const otherPlayer = room.players[0];
+    if (otherPlayer.mark === MARK.O) {
+      otherPlayer.mark = MARK.X;
+    }
+
+    // Notice the other player
+    io.to(otherPlayer.playerId).emit("opponentLeaved", room);
+  };
+
+const disconnectHandler =
+  ({ socket, io }) =>
+  () => {
+    // Find this player's room
+    const playerId = socket.id;
+    const { room, roomIndex } = searchRoomByPlayer(playerId);
+
+    // Do nothing if player hasn't joined any room
+    if (!room) {
+      return;
+    }
+
+    // Remove player from room
+    room.players = room.players.filter(
+      (player) => player.playerId !== playerId
+    );
+
+    // Remove room if there's no players left
+    if (room.players.length === 0) {
+      rooms.splice(roomIndex, 1);
+      return;
+    }
+
+    // Reset board
+    room.board = createBoard();
+
+    // Switch mark for first player if needed
+    const otherPlayer = room.players[0];
+    if (otherPlayer.mark === MARK.O) {
+      otherPlayer.mark = MARK.X;
+    }
+
+    // Notice the other player
+    io.to(otherPlayer.playerId).emit("opponentLeaved", room);
+  };
+
+export {
+  createRoomHandler,
+  joinRoomHandler,
+  leaveRoomHandler,
+  disconnectHandler,
+};
