@@ -16,6 +16,10 @@ export default function Game() {
     socket.emit("leaveRoom", roomId);
   };
 
+  const copyRoomId = () => {
+    navigator.clipboard.writeText(roomId);
+  };
+
   useEffect(() => {
     if (!roomId) {
       navigate("/");
@@ -30,7 +34,7 @@ export default function Game() {
 
   return (
     <div>
-      <h1>Room ID: {roomId}</h1>
+      <button onClick={copyRoomId}>Copy Room ID</button>
       <p>You: {getPlayerDisplay(thisPlayer)}</p>
       <p>Opponent: {getPlayerDisplay(otherPlayer)}</p>
       <button onClick={leaveRoom}>Leave Room</button>
