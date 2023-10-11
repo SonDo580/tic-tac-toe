@@ -1,5 +1,11 @@
 import { MARK } from "../constants.js";
-import { createRoom, rooms, searchRoom } from "../utils/room.js";
+import { createBoard } from "../utils/board.js";
+import {
+  createRoom,
+  rooms,
+  searchRoom,
+  searchRoomByPlayer,
+} from "../utils/room.js";
 
 const createRoomHandler = (socket) => (playerName) => {
   if (playerName.trim() === "") {
