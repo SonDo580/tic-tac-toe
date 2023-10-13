@@ -3,7 +3,7 @@ import { createBoard } from "../utils/board.js";
 import {
   createRoom,
   rooms,
-  searchRoom,
+  searchRoomById,
   searchRoomByPlayer,
 } from "../utils/room.js";
 
@@ -32,7 +32,7 @@ const joinRoomHandler =
       return;
     }
 
-    const { room } = searchRoom(roomID);
+    const { room } = searchRoomById(roomID);
     if (!room) {
       socket.emit("roomNotExists");
       return;
@@ -55,7 +55,7 @@ const leaveRoomHandler =
   ({ socket, io }) =>
   (roomId) => {
     const playerId = socket.id;
-    const { roomIndex, room } = searchRoom(roomId);
+    const { roomIndex, room } = searchRoomById(roomId);
     if (roomIndex === -1) {
       return;
     }

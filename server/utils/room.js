@@ -21,7 +21,7 @@ const createRoom = (firstPlayer) => {
   };
 };
 
-const searchRoom = (roomId) => {
+const searchRoomById = (roomId) => {
   const roomIndex = rooms.findIndex((r) => r.roomId === roomId);
   const room = roomIndex !== -1 ? rooms[roomIndex] : undefined;
   return { room, roomIndex };
@@ -35,4 +35,4 @@ const searchRoomByPlayer = (playerId) => {
   return { room, roomIndex };
 };
 
-export { rooms, createRoom, searchRoom, searchRoomByPlayer };
+export { rooms, createRoom, searchRoomById, searchRoomByPlayer };
