@@ -1,9 +1,8 @@
-import { produce } from "immer";
-
 const initialState = {
   roomId: null,
   board: null,
   players: null,
+  turn: null,
   endGame: false,
 };
 
@@ -12,21 +11,17 @@ const ACTION = {
   RESET_GAME: "RESET_GAME",
 };
 
-const reducer = (state, action) =>
-  produce(state, (draft) => {
-    switch (action.type) {
-      case ACTION.INIT_GAME:
-        draft.roomId = action.roomInfo.roomId;
-        draft.board = action.roomInfo.board;
-        draft.players = action.roomInfo.players;
-        break;
+const reducer = (state, action) => {
+  switch (action.type) {
+    case ACTION.INIT_GAME:
+      return action.roomInfo;
 
-      case ACTION.RESET_GAME:
-        return initialState;
+    case ACTION.RESET_GAME:
+      return initialState;
 
-      default:
-        break;
-    }
-  });
+    default:
+      break;
+  }
+};
 
 export { ACTION, initialState, reducer };

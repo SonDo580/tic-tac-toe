@@ -7,11 +7,15 @@ const createRoom = (firstPlayer) => {
   const roomId = uuid();
   const board = createBoard();
   const players = [firstPlayer];
+  const turn = MARK.X;
+  const endGame = false;
 
   return {
     roomId,
     players,
     board,
+    turn,
+    endGame,
   };
 };
 
