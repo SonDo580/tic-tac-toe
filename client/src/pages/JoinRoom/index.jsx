@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
 
 export default function JoinRoom() {
-  const navigate = useNavigate();
-
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
   const changeName = (event) => {
@@ -62,10 +59,6 @@ export default function JoinRoom() {
 
     socket.on("roomFull", () => {
       setRoomError(MESSAGE.roomFull);
-    });
-
-    socket.on("roomJoined", () => {
-      navigate("/game");
     });
   }, []);
 

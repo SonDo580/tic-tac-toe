@@ -22,8 +22,14 @@ const GameProvider = ({ children }) => {
   const contextValue = { state, initGame };
 
   useEffect(() => {
+    socket.on("roomCreated", (roomInfo) => {
+      initGame(roomInfo);
+      navigate("/game");
+    });
+
     socket.on("roomJoined", (roomInfo) => {
       initGame(roomInfo);
+      navigate("/game");
     });
 
     socket.on("opponentLeaved", (roomInfo) => {

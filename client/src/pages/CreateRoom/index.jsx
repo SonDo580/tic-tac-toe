@@ -1,14 +1,9 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
-import { GameContext } from "@/context/GameContext";
 
 export default function CreateRoom() {
-  const navigate = useNavigate();
-  const { initGame } = useContext(GameContext);
-
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
   const changeName = (event) => {
@@ -28,11 +23,6 @@ export default function CreateRoom() {
   useEffect(() => {
     socket.on("nameError", () => {
       setNameError(MESSAGE.nameError);
-    });
-
-    socket.on("roomCreated", (roomInfo) => {
-      initGame(roomInfo);
-      navigate("/game");
     });
   }, []);
 
