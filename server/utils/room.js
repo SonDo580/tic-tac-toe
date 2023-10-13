@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { createBoard } from "./board.js";
 import { MARK } from "../constants.js";
 
-const rooms = [];
+const rooms = {};
 
 const createRoom = (firstPlayer) => {
   const roomId = uuid();
@@ -21,18 +21,32 @@ const createRoom = (firstPlayer) => {
   };
 };
 
-const searchRoomById = (roomId) => {
-  const roomIndex = rooms.findIndex((r) => r.roomId === roomId);
-  const room = roomIndex !== -1 ? rooms[roomIndex] : undefined;
-  return { room, roomIndex };
+const addRoom = (room) => {
+  rooms[room.roomId] = room;
 };
+
+const searchRoomById = (roomId) => rooms[roomId];
 
 const searchRoomByPlayer = (playerId) => {
-  const roomIndex = rooms.findIndex((r) =>
+  return Object.values(rooms).find((r) =>
     r.players.some((p) => p.playerId === playerId)
   );
-  const room = roomIndex !== -1 ? rooms[roomIndex] : undefined;
-  return { room, roomIndex };
 };
 
-export { rooms, createRoom, searchRoomById, searchRoomByPlayer };
+const removePlayer = ({ room, playerId }) => {
+  room.players = room.players.filter((p) => p.playerId !== playerId);
+};
+
+const deleteRoom = (room) => {
+  delete rooms[room.roomId];
+  console.log(rooms);
+};
+
+export {
+  createRoom,
+  addRoom,
+  searchRoomById,
+  searchRoomByPlayer,
+  removePlayer,
+  deleteRoom,
+};
