@@ -109,7 +109,10 @@ const hightLightDirection = (direction, ...args) => {
 };
 
 const getHighlightCells = (...args) => {
-  const highlightCells = [];
+  // Always highlight the last selected cell
+  const [, rowIndex, colIndex] = args;
+  const highlightCells = [`${rowIndex}-${colIndex}`];
+
   const markCount = countAllDirections(...args);
 
   for (const [direction, count] of Object.entries(markCount)) {
@@ -117,11 +120,6 @@ const getHighlightCells = (...args) => {
       continue;
     }
     highlightCells.push(...hightLightDirection(direction, ...args));
-  }
-
-  const [, rowIndex, colIndex] = args;
-  if (highlightCells.length > 0) {
-    highlightCells.push(`${rowIndex}-${colIndex}`);
   }
 
   return highlightCells;
