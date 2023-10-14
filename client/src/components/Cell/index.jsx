@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+
 import { MARK } from "@/constants";
 
 const COLOR_CLASS = {
@@ -13,11 +14,13 @@ const getHighlightClass = (highlight) => (highlight ? "highlight" : "");
 const getCellClass = (mark, highlight) =>
   `cell ${getColorClass(mark)} ${getHighlightClass(highlight)}`;
 
-export default function Cell({ mark, highlight, row, col, handleClick }) {
-  const selectCell = () => handleClick(row, col);
+export default function Cell({ mark, highlight, row, col, selectCell }) {
+  const handleClick = () => {
+    selectCell(row, col);
+  };
 
   return (
-    <div className={getCellClass(mark, highlight)} onClick={selectCell}>
+    <div className={getCellClass(mark, highlight)} onClick={handleClick}>
       {mark}
     </div>
   );
@@ -33,5 +36,5 @@ Cell.propTypes = {
   highlight: PropTypes.bool,
   row: PropTypes.number.isRequired,
   col: PropTypes.number.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  selectCell: PropTypes.func.isRequired,
 };

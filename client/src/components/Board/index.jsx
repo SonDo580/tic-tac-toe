@@ -1,12 +1,21 @@
 import { Fragment, useContext } from "react";
+import PropTypes from "prop-types";
 
+import { socket } from "../../utils/socket";
 import { GameContext } from "@/context/GameContext";
 import Cell from "@/components/Cell";
 
-export default function Board() {
+export default function Board({ allowMove }) {
   const {
-    state: { board },
+    state: { roomId, board },
   } = useContext(GameContext);
+
+  const selectCell = (row, col) => {
+    if (!allowMove) {
+      return;
+    }
+    socket.emit("move", { roomId, row, col });
+  };
 
   return (
     <div className="board">
@@ -19,7 +28,7 @@ export default function Board() {
               row={i}
               col={j}
               highlight={false}
-              handleClick={() => {}}
+              selectCell={selectCell}
             />
           ))}
         </Fragment>
@@ -27,3 +36,7 @@ export default function Board() {
     </div>
   );
 }
+
+Board.propTypes = {
+  allowMove: PropTypes.bool.isRequired,
+};

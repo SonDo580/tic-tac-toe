@@ -9,7 +9,7 @@ import Board from "@/components/Board";
 export default function Game() {
   const navigate = useNavigate();
   const {
-    state: { roomId, players },
+    state: { roomId, players, turn },
   } = useContext(GameContext);
 
   const leaveRoom = () => {
@@ -31,14 +31,16 @@ export default function Game() {
   }
 
   const { thisPlayer, otherPlayer } = getPlayerRoles(players);
+  const allowMove = thisPlayer.mark === turn;
 
   return (
     <div>
       <button onClick={copyRoomId}>Copy Room ID</button>
       <p>You: {getPlayerDisplay(thisPlayer)}</p>
       <p>Opponent: {getPlayerDisplay(otherPlayer)}</p>
+      <p>{allowMove ? "Your turn" : "Opponent's turn"}</p>
       <button onClick={leaveRoom}>Leave Room</button>
-      <Board />
+      <Board allowMove={allowMove} />
     </div>
   );
 }

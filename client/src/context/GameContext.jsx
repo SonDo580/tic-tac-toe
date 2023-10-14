@@ -40,6 +40,10 @@ const GameProvider = ({ children }) => {
       resetGame();
       navigate("/");
     });
+
+    socket.on("boardUpdated", (roomInfo) => {
+      initGame(roomInfo);
+    });
   }, []);
 
   return (
