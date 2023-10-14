@@ -9,4 +9,9 @@ const createBoard = () => {
   return board;
 };
 
-export { createBoard };
+const isValidCell = ({ row, col }) =>
+  row >= 0 && row < SIDE && col >= 0 && col < SIDE;
+
+const isEmptyCell = ({ board, row, col }) => board[row][col] === "";
+
+export { createBoard, isValidCell, isEmptyCell };
