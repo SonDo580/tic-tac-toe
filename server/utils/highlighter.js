@@ -1,4 +1,4 @@
-import { SIDE, DIRECTION, WIN_COUNT } from "@/constants";
+import { SIDE, DIRECTION, WIN_COUNT } from "../constants";
 import { countAllDirections } from "./counter";
 
 const highlightHorizontal = (board, row, column, mark) => {
