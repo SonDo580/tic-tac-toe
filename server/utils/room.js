@@ -33,6 +33,15 @@ const searchRoomByPlayer = (playerId) => {
   );
 };
 
+const findPlayer = ({ room, playerId }) =>
+  room.players.reduce(
+    (acc, p) =>
+      p.playerId === playerId
+        ? { ...acc, thisPlayer: p }
+        : { ...acc, otherPlayer: p },
+    {}
+  );
+
 const removePlayer = ({ room, playerId }) => {
   room.players = room.players.filter((p) => p.playerId !== playerId);
 };
@@ -47,6 +56,7 @@ export {
   addRoom,
   searchRoomById,
   searchRoomByPlayer,
+  findPlayer,
   removePlayer,
   deleteRoom,
 };
