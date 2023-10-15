@@ -1,5 +1,7 @@
 import { SIDE } from "../constants.js";
 
+let moveCount = 0;
+
 const createBoard = () => {
   const board = [];
   for (let i = 0; i < SIDE; i++) {
@@ -14,4 +16,15 @@ const isValidCell = ({ row, col }) =>
 
 const isEmptyCell = ({ board, row, col }) => board[row][col] === "";
 
-export { createBoard, isValidCell, isEmptyCell };
+const makeMove = ({ board, row, col, mark }) => {
+  board[row][col] = mark;
+  moveCount++;
+};
+
+const boardFull = () => moveCount === SIDE ** 2;
+
+const winnerFound = (highlightCells) => highlightCells.length > 1;
+
+const gameEnded = (room) => winnerFound(room.highlightCells) || boardFull();
+
+export { createBoard, isValidCell, isEmptyCell, makeMove, gameEnded };
