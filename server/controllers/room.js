@@ -1,6 +1,5 @@
 import { MARK } from "../constants.js";
-import { createBoard } from "../utils/board.js";
-import { resetMark, resetTurn } from "../utils/mark.js";
+import { resetMark } from "../utils/mark.js";
 import {
   addRoom,
   createRoom,
