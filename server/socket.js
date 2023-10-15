@@ -6,15 +6,7 @@ import {
   joinRoomHandler,
   leaveRoomHandler,
 } from "./controllers/room.js";
-import { findPlayer, searchRoomById } from "./utils/room.js";
-import { swapTurn } from "./utils/mark.js";
-import {
-  gameEnded,
-  isEmptyCell,
-  isValidCell,
-  makeMove,
-} from "./utils/board.js";
-import { getHighlightCells } from "./utils/highlighter.js";
+import { moveHandler } from "./controllers/game.js";
 
 const runSocketIO = (httpServer) => {
   const allowedOrigins = ["http://localhost:5173"]; // add live client URL later
@@ -28,54 +20,7 @@ const runSocketIO = (httpServer) => {
     socket.on("leaveRoom", leaveRoomHandler({ socket, io }));
     socket.on("disconnect", disconnectHandler({ socket, io }));
 
-    socket.on("move", ({ roomId, row, col }) => {
-      // Check row and col
-      if (!isValidCell({ row, col })) {
-        return;
-      }
-
-      // Find current room
-      const room = searchRoomById(roomId);
-      if (!room) {
-        return;
-      }
-
-      // Find players in the room
-      const { thisPlayer, otherPlayer } = findPlayer({
-        room,
-        playerId: socket.id,
-      });
-      if (!thisPlayer) {
-        return;
-      }
-
-      // Check if this is this player's turn
-      const { board, turn } = room;
-      if (thisPlayer.mark !== turn) {
-        return;
-      }
-
-      // Check if the cell is empty
-      if (!isEmptyCell({ board, row, col })) {
-        return;
-      }
-
-      // Handle the move
-      makeMove({ board, row, col, mark: turn });
-      // Get cells to be highlighted
-      room.highlightCells = getHighlightCells(board, row, col, turn);
-      // Check end game
-      room.endGame = gameEnded(room);
-
-      // Swap turn
-      swapTurn(room);
-
-      // Notice the players
-      socket.emit("boardUpdated", room);
-      if (otherPlayer) {
-        io.to(otherPlayer.playerId).emit("boardUpdated", room);
-      }
-    });
+    socket.on("move", moveHandler({ socket, io }));
   });
 };
 
