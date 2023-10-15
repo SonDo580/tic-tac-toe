@@ -10,6 +10,7 @@ const createRoom = (firstPlayer) => {
   const board = createBoard();
   const players = [firstPlayer];
   const turn = MARK.X;
+  const highlightCells = [];
   const endGame = false;
 
   return {
@@ -17,6 +18,7 @@ const createRoom = (firstPlayer) => {
     players,
     board,
     turn,
+    highlightCells,
     endGame,
   };
 };
