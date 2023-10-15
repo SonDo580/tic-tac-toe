@@ -69,7 +69,7 @@ const leaveRoomHandler =
 
     // Remove room if there's no players left
     if (room.players.length === 0) {
-      deleteRoom();
+      deleteRoom(room);
       return;
     }
 
@@ -101,7 +101,7 @@ const disconnectHandler =
 
     // Remove room if there's no players left
     if (room.players.length === 0) {
-      deleteRoom();
+      deleteRoom(room);
       return;
     }
 
