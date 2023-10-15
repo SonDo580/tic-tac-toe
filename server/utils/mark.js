@@ -6,6 +6,14 @@ const resetMark = (player) => {
   }
 };
 
+const swapMark = (players) => {
+  if (players.length !== 2) {
+    return;
+  }
+
+  [players[1].mark, players[0].mark] = [players[0].mark, players[1].mark];
+};
+
 const swapTurn = (room) => {
   if (room.turn === MARK.X) {
     room.turn = MARK.O;
@@ -14,4 +22,4 @@ const swapTurn = (room) => {
   }
 };
 
-export { resetMark, swapTurn };
+export { resetMark, swapMark, swapTurn };
