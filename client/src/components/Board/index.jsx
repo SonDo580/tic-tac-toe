@@ -1,14 +1,17 @@
 import { Fragment, useContext } from "react";
 import PropTypes from "prop-types";
 
-import { socket } from "../../utils/socket";
+import { socket } from "@/utils/socket";
 import { GameContext } from "@/context/GameContext";
 import Cell from "@/components/Cell";
 
 export default function Board({ allowMove }) {
   const {
-    state: { roomId, board },
+    state: { roomId, board, highlightCells },
   } = useContext(GameContext);
+
+  const shouldHighlight = (row, col) =>
+    highlightCells.includes(`${row}-${col}`);
 
   const selectCell = (row, col) => {
     if (!allowMove) {
@@ -27,7 +30,7 @@ export default function Board({ allowMove }) {
               mark={mark}
               row={i}
               col={j}
-              highlight={false}
+              highlight={shouldHighlight(i, j)}
               selectCell={selectCell}
             />
           ))}
