@@ -14,8 +14,4 @@ const swapTurn = (room) => {
   }
 };
 
-const resetTurn = (room) => {
-  room.turn = MARK.X;
-};
-
-export { resetMark, swapTurn, resetTurn };
+export { resetMark, swapTurn };

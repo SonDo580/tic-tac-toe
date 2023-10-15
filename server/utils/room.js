@@ -27,6 +27,13 @@ const addRoom = (room) => {
   rooms[room.roomId] = room;
 };
 
+const resetRoom = (room) => {
+  room.board = createBoard();
+  room.highlightCells = [];
+  room.turn = MARK.X;
+  room.endGame = false;
+};
+
 const searchRoomById = (roomId) => rooms[roomId];
 
 const searchRoomByPlayer = (playerId) => {
@@ -50,15 +57,15 @@ const removePlayer = ({ room, playerId }) => {
 
 const deleteRoom = (room) => {
   delete rooms[room.roomId];
-  console.log(rooms);
 };
 
 export {
   createRoom,
   addRoom,
+  resetRoom,
+  deleteRoom,
   searchRoomById,
   searchRoomByPlayer,
   findPlayer,
   removePlayer,
-  deleteRoom,
 };

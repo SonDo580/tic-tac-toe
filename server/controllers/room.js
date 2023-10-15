@@ -1,11 +1,12 @@
 import { MARK } from "../constants.js";
 import { createBoard } from "../utils/board.js";
-import { resetMark } from "../utils/mark.js";
+import { resetMark, resetTurn } from "../utils/mark.js";
 import {
   addRoom,
   createRoom,
   deleteRoom,
   removePlayer,
+  resetRoom,
   searchRoomById,
   searchRoomByPlayer,
 } from "../utils/room.js";
@@ -73,8 +74,8 @@ const leaveRoomHandler =
       return;
     }
 
-    // Reset board
-    room.board = createBoard();
+    // Reset room state
+    resetRoom(room);
 
     // Assign X mark for the first player (if needed)
     const otherPlayer = room.players[0];
@@ -105,8 +106,8 @@ const disconnectHandler =
       return;
     }
 
-    // Reset board
-    room.board = createBoard();
+    // Reset room state
+    resetRoom(room);
 
     // Assign X mark for the first player (if needed)
     const otherPlayer = room.players[0];
