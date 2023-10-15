@@ -1,4 +1,4 @@
-import { SIDE, DIRECTION } from "../constants";
+import { SIDE, DIRECTION } from "../constants.js";
 
 const countHorizontal = (board, row, column, mark) => {
   let markNumber = 1;
