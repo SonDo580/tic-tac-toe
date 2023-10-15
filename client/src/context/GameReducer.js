@@ -3,6 +3,7 @@ const initialState = {
   board: null,
   players: null,
   turn: null,
+  highlightCells: null,
   endGame: false,
 };
 
