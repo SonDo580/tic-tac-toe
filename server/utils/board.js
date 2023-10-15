@@ -2,6 +2,10 @@ import { SIDE } from "../constants.js";
 
 let moveCount = 0;
 
+const resetMoveCount = () => {
+  moveCount = 0;
+};
+
 const createBoard = () => {
   const board = [];
   for (let i = 0; i < SIDE; i++) {
@@ -27,4 +31,11 @@ const winnerFound = (highlightCells) => highlightCells.length > 1;
 
 const gameEnded = (room) => winnerFound(room.highlightCells) || boardFull();
 
-export { createBoard, isValidCell, isEmptyCell, makeMove, gameEnded };
+export {
+  createBoard,
+  isValidCell,
+  isEmptyCell,
+  makeMove,
+  gameEnded,
+  resetMoveCount,
+};

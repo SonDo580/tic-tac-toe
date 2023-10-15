@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 
-import { createBoard } from "./board.js";
 import { MARK } from "../constants.js";
+import { createBoard, resetMoveCount } from "./board.js";
 
 const rooms = {};
 
@@ -32,6 +32,7 @@ const resetRoom = (room) => {
   room.highlightCells = [];
   room.turn = MARK.X;
   room.endGame = false;
+  resetMoveCount();
 };
 
 const searchRoomById = (roomId) => rooms[roomId];
