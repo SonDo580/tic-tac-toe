@@ -8,7 +8,13 @@ import {
 } from "./controllers/room.js";
 import { findPlayer, searchRoomById } from "./utils/room.js";
 import { swapTurn } from "./utils/mark.js";
-import { isEmptyCell, isValidCell } from "./utils/board.js";
+import {
+  gameEnded,
+  isEmptyCell,
+  isValidCell,
+  makeMove,
+} from "./utils/board.js";
+import { getHighlightCells } from "./utils/highlighter.js";
 
 const runSocketIO = (httpServer) => {
   const allowedOrigins = ["http://localhost:5173"]; // add live client URL later
@@ -55,9 +61,11 @@ const runSocketIO = (httpServer) => {
       }
 
       // Handle the move
-      board[row][col] = turn;
-      // highlight
-      // check endgame
+      makeMove({ board, row, col, mark: turn });
+      // Get cells to be highlighted
+      room.highlightCells = getHighlightCells(board, row, col, turn);
+      // Check end game
+      room.endGame = gameEnded(room);
 
       // Swap turn
       swapTurn(room);
