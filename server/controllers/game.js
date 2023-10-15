@@ -22,6 +22,11 @@ const moveHandler =
       return;
     }
 
+    // Don't allow moving if the game has finished
+    if (room.endGame) {
+      return;
+    }
+
     // Find players in the room
     const { thisPlayer, otherPlayer } = findPlayer({
       room,
