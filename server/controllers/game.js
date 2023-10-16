@@ -5,8 +5,8 @@ import {
   makeMove,
 } from "../utils/board.js";
 import { getHighlightCells } from "../utils/highlighter.js";
-import { swapTurn } from "../utils/mark.js";
-import { findPlayer, searchRoomById } from "../utils/room.js";
+import { swapMark, swapTurn } from "../utils/mark.js";
+import { findPlayer, resetRoom, searchRoomById } from "../utils/room.js";
 
 const moveHandler =
   ({ socket, io }) =>
@@ -63,4 +63,23 @@ const moveHandler =
     }
   };
 
-export { moveHandler };
+const rematchHandler = (socket) => (roomId) => {
+  // Find the room
+  const room = searchRoomById(roomId);
+  if (!room) {
+    return;
+  }
+
+  // The second event will not trigger this code
+  if (room.endGame) {
+    // Swap the players' marks
+    swapMark(room.players);
+    // Reset room state
+    resetRoom(room);
+  }
+
+  // Notice this player
+  socket.emit("rematched", room);
+};
+
+export { moveHandler, rematchHandler };
