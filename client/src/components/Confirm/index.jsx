@@ -19,8 +19,8 @@ export default function Confirm({
 }
 
 Confirm.defaultProps = {
-  okText: "OK",
-  cancelText: "Cancel",
+  okText: "Yes",
+  cancelText: "No",
 };
 
 Confirm.propTypes = {

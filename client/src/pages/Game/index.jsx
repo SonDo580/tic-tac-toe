@@ -50,13 +50,7 @@ export default function Game() {
       <Board allowMove={allowMove} />
 
       {endGame && (
-        <Confirm
-          question="Play again?"
-          okText="Yes"
-          cancelText="No"
-          onOk={rematch}
-          onCancel={leaveRoom}
-        />
+        <Confirm question="Play again?" onOk={rematch} onCancel={leaveRoom} />
       )}
     </div>
   );
