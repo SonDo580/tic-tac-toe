@@ -1,4 +1,4 @@
-import { SIDE } from "../constants";
+import { SIDE } from "../constants.js";
 
 let moveCount = 0;
 const resetMoveCount = () => {

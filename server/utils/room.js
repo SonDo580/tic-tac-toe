@@ -1,7 +1,8 @@
 import { v4 as uuid } from "uuid";
 
 import { MARK } from "../constants.js";
-import { createBoard, resetMoveCount } from "./board.js";
+import { createBoard } from "./board.js";
+import { resetMoveCount } from "./game.js";
 
 const rooms = {};
 

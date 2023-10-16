@@ -1,9 +1,5 @@
-import {
-  gameEnded,
-  isEmptyCell,
-  isValidCell,
-  makeMove,
-} from "../utils/board.js";
+import { isEmptyCell, isValidCell } from "../utils/board.js";
+import { gameEnded, makeMove } from "../utils/game.js";
 import { getHighlightCells } from "../utils/highlighter.js";
 import { swapMark, swapTurn } from "../utils/mark.js";
 import { findPlayer, resetRoom, searchRoomById } from "../utils/room.js";
