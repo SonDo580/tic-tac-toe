@@ -5,11 +5,12 @@ import { socket } from "@/utils/socket";
 import { getPlayerRoles, getPlayerDisplay } from "@/utils/player";
 import { GameContext } from "@/context/GameContext";
 import Board from "@/components/Board";
+import Confirm from "@/components/Confirm";
 
 export default function Game() {
   const navigate = useNavigate();
   const {
-    state: { roomId, players, turn },
+    state: { roomId, players, turn, endGame },
   } = useContext(GameContext);
 
   const leaveRoom = () => {
@@ -18,6 +19,10 @@ export default function Game() {
 
   const copyRoomId = () => {
     navigator.clipboard.writeText(roomId);
+  };
+
+  const rematch = () => {
+    socket.emit("rematch", roomId);
   };
 
   useEffect(() => {
@@ -35,12 +40,24 @@ export default function Game() {
 
   return (
     <div>
-      <button onClick={copyRoomId}>Copy Room ID</button>
       <p>You: {getPlayerDisplay(thisPlayer)}</p>
       <p>Opponent: {getPlayerDisplay(otherPlayer)}</p>
       <p>{allowMove ? "Your turn" : "Opponent's turn"}</p>
+
+      <button onClick={copyRoomId}>Copy Room ID</button>
       <button onClick={leaveRoom}>Leave Room</button>
+
       <Board allowMove={allowMove} />
+
+      {endGame && (
+        <Confirm
+          question="Play again?"
+          okText="Yes"
+          cancelText="No"
+          onOk={rematch}
+          onCancel={leaveRoom}
+        />
+      )}
     </div>
   );
 }
