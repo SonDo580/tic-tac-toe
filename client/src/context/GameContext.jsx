@@ -32,16 +32,20 @@ const GameProvider = ({ children }) => {
       navigate("/game");
     });
 
-    socket.on("opponentLeaved", (roomInfo) => {
-      initGame(roomInfo);
-    });
-
     socket.on("roomLeaved", () => {
       resetGame();
       navigate("/");
     });
 
+    socket.on("opponentLeaved", (roomInfo) => {
+      initGame(roomInfo);
+    });
+
     socket.on("boardUpdated", (roomInfo) => {
+      initGame(roomInfo);
+    });
+
+    socket.on("rematched", (roomInfo) => {
       initGame(roomInfo);
     });
   }, []);
