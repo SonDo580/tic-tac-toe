@@ -12,7 +12,7 @@ const getColorClass = (mark) => COLOR_CLASS[mark] || "";
 const getHighlightClass = (highlight) => (highlight ? "highlight" : "");
 
 const getCellClass = (mark, highlight) =>
-  `cell ${getColorClass(mark)} ${getHighlightClass(highlight)}`;
+  ["cell", getColorClass(mark), getHighlightClass(highlight)].join(" ");
 
 export default function Cell({ mark, highlight, row, col, selectCell }) {
   const handleClick = () => {
