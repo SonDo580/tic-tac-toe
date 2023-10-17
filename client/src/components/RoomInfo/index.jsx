@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 import { socket } from "@/utils/socket";
 import { MARK } from "@/constants/index";
+import { MESSAGE } from "@/constants/messages";
 import PlayerDisplay from "@/components/PlayerDisplay";
 
 export default function RoomInfo({
@@ -16,6 +18,7 @@ export default function RoomInfo({
 
   const copyRoomId = () => {
     navigator.clipboard.writeText(roomId);
+    toast(MESSAGE.roomIdCopied);
   };
 
   return (
