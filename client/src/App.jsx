@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.scss";
+import { toastConfig } from "@/utils/toast";
 import Starter from "@/pages/Starter";
 import Game from "@/pages/Game";
 import CreateRoom from "@/pages/CreateRoom";
@@ -17,12 +18,7 @@ function App() {
         <Route path="/join" element={<JoinRoom />} />
         <Route path="/game" element={<Game />} />
       </Routes>
-
-      <ToastContainer
-        autoClose={1500}
-        closeButton={false}
-        position="top-center"
-      />
+      <ToastContainer {...toastConfig} />
     </>
   );
 }
