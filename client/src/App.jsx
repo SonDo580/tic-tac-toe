@@ -17,7 +17,12 @@ function App() {
         <Route path="/join" element={<JoinRoom />} />
         <Route path="/game" element={<Game />} />
       </Routes>
-      <ToastContainer />
+
+      <ToastContainer
+        autoClose={1500}
+        closeButton={false}
+        position="top-center"
+      />
     </>
   );
 }
