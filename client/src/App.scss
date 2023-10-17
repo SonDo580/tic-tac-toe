@@ -60,6 +60,35 @@ body {
   }
 }
 
+.roomInfo {
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
+
+  .players {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .player {
+    display: inline;
+
+    .mark {
+      color: yellow;
+      font-size: 1.5rem;
+    }
+  }
+
+  .button {
+    font-size: 1rem;
+    margin: 0 5px;
+  }
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat($side, 1fr);

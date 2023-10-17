@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
-import { getPlayerRoles, getPlayerDisplay } from "@/utils/player";
+import { getPlayerRoles } from "@/utils/player";
 import { GameContext } from "@/context/GameContext";
 import Board from "@/components/Board";
 import Confirm from "@/components/Confirm";
+import RoomInfo from "@/components/RoomInfo";
 
 export default function Game() {
   const navigate = useNavigate();
@@ -14,10 +15,6 @@ export default function Game() {
 
   const leaveRoom = () => {
     socket.emit("leaveRoom", roomId);
-  };
-
-  const copyRoomId = () => {
-    navigator.clipboard.writeText(roomId);
   };
 
   const rematch = () => {
@@ -39,12 +36,11 @@ export default function Game() {
 
   return (
     <div>
-      <p>You: {getPlayerDisplay(thisPlayer)}</p>
-      <p>Opponent: {getPlayerDisplay(otherPlayer)}</p>
-      <p>{allowMove ? "Your turn" : "Opponent's turn"}</p>
-
-      <button onClick={copyRoomId}>Copy Room ID</button>
-      <button onClick={leaveRoom}>Leave Room</button>
+      <RoomInfo
+        roomId={roomId}
+        thisPlayer={thisPlayer}
+        otherPlayer={otherPlayer}
+      />
 
       <Board allowMove={allowMove} />
 
