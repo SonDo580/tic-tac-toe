@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
 import { getPlayerRoles, getPlayerDisplay } from "@/utils/player";
 import { GameContext } from "@/context/GameContext";
@@ -50,7 +51,11 @@ export default function Game() {
       <Board allowMove={allowMove} />
 
       {endGame && (
-        <Confirm question="Play again?" onOk={rematch} onCancel={leaveRoom} />
+        <Confirm
+          question={MESSAGE.playAgain}
+          onOk={rematch}
+          onCancel={leaveRoom}
+        />
       )}
     </div>
   );

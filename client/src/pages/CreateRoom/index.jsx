@@ -30,7 +30,7 @@ export default function CreateRoom() {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Enter your name"
+        placeholder={MESSAGE.namePlaceholder}
         value={name}
         onChange={changeName}
       />

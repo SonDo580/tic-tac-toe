@@ -1,4 +1,5 @@
 import { socket } from "@/utils/socket";
+import { MESSAGE } from "@/constants/messages";
 
 const getPlayerRoles = (players) =>
   players.reduce((acc, player) => {
@@ -11,7 +12,7 @@ const getPlayerRoles = (players) =>
 
 const getPlayerDisplay = (player) => {
   if (!player) {
-    return "Waiting...";
+    return MESSAGE.waiting;
   }
 
   return `${player.playerName} - ${player.mark}`;

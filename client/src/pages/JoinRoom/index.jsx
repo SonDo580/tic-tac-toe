@@ -66,7 +66,7 @@ export default function JoinRoom() {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Enter your name"
+        placeholder={MESSAGE.namePlaceholder}
         value={name}
         onChange={changeName}
       />
@@ -74,7 +74,7 @@ export default function JoinRoom() {
 
       <input
         type="text"
-        placeholder="Enter room ID"
+        placeholder={MESSAGE.roomPlaceholder}
         value={roomID}
         onChange={changeRoomID}
       />
