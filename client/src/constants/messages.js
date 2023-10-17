@@ -7,6 +7,8 @@ const MESSAGE = {
   roomFull: "Room was full",
   waiting: "Waiting...",
   playAgain: "Play again?",
+  opponentJoined: "Opponent joined!",
+  opponentLeaved: "Opponent leaved!",
 };
 
 export { MESSAGE };

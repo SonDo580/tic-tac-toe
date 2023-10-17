@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
+import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
 import { ACTION, initialState, reducer } from "./GameReducer";
 
@@ -33,7 +34,7 @@ const GameProvider = ({ children }) => {
 
     socket.on("opponentJoined", (roomInfo) => {
       initGame(roomInfo);
-      toast("Opponent joined!");
+      toast(MESSAGE.opponentJoined);
     });
 
     socket.on("roomLeaved", () => {
@@ -43,7 +44,7 @@ const GameProvider = ({ children }) => {
 
     socket.on("opponentLeaved", (roomInfo) => {
       initGame(roomInfo);
-      toast("Opponent leaved!");
+      toast(MESSAGE.opponentLeaved);
     });
 
     socket.on("boardUpdated", (roomInfo) => {
