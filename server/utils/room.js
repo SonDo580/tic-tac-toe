@@ -2,27 +2,18 @@ import { v4 as uuid } from "uuid";
 
 import { MARK } from "../constants.js";
 import { createBoard } from "./board.js";
-import { resetMoveCount } from "./game.js";
 
 const rooms = {};
 
-const createRoom = (firstPlayer) => {
-  const roomId = uuid();
-  const board = createBoard();
-  const players = [firstPlayer];
-  const turn = MARK.X;
-  const highlightCells = [];
-  const endGame = false;
-
-  return {
-    roomId,
-    players,
-    board,
-    turn,
-    highlightCells,
-    endGame,
-  };
-};
+const createRoom = (firstPlayer) => ({
+  roomId: uuid(),
+  players: [firstPlayer],
+  board: createBoard(),
+  turn: MARK.X,
+  highlightCells: [],
+  endGame: false,
+  moveCount: 0,
+});
 
 const addRoom = (room) => {
   rooms[room.roomId] = room;
@@ -33,7 +24,7 @@ const resetRoom = (room) => {
   room.highlightCells = [];
   room.turn = MARK.X;
   room.endGame = false;
-  resetMoveCount();
+  room.moveCount = 0;
 };
 
 const searchRoomById = (roomId) => rooms[roomId];

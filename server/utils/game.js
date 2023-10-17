@@ -1,20 +1,15 @@
 import { SIDE } from "../constants.js";
 
-let moveCount = 0;
-const resetMoveCount = () => {
-  moveCount = 0;
-};
-const incrementMoveCount = () => {
-  moveCount++;
+const makeMove = ({ room, row, col, mark }) => {
+  room.board[row][col] = mark;
+  room.moveCount++;
 };
 
-const makeMove = ({ board, row, col, mark }) => {
-  board[row][col] = mark;
-  incrementMoveCount();
-};
+const boardFull = (moveCount) => moveCount === SIDE ** 2;
 
-const boardFull = () => moveCount === SIDE ** 2;
 const winnerFound = (highlightCells) => highlightCells.length > 1;
-const gameEnded = (room) => winnerFound(room.highlightCells) || boardFull();
 
-export { makeMove, gameEnded, resetMoveCount };
+const gameEnded = (room) =>
+  winnerFound(room.highlightCells) || boardFull(room.moveCount);
+
+export { makeMove, gameEnded };

@@ -44,7 +44,7 @@ const moveHandler =
     }
 
     // Handle the move
-    makeMove({ board, row, col, mark: turn });
+    makeMove({ room, row, col, mark: turn });
     // Get cells to be highlighted
     room.highlightCells = getHighlightCells(board, row, col, turn);
     // Check end game
