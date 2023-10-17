@@ -9,7 +9,11 @@ import {
 import { moveHandler, rematchHandler } from "./controllers/game.js";
 
 const runSocketIO = (httpServer) => {
-  const allowedOrigins = ["http://localhost:5173"]; // add live client URL later
+  const allowedOrigins = [
+    "https://sondm-tictactoe.netlify.app",
+    "http://localhost:5173",
+  ];
+
   const io = new Server(httpServer, {
     cors: { origin: allowedOrigins },
   });
