@@ -15,6 +15,10 @@ body {
   width: max-content;
   padding: 10px 20px;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 0px 10px 0px yellow;
+  }
 }
 
 .wrapper {
@@ -64,7 +68,9 @@ body {
   width: 500px;
   aspect-ratio: 1 / 1;
   margin: auto;
+
   border: 1px solid $borderColor;
+  background-color: white;
 }
 
 .cell {
@@ -97,11 +103,31 @@ body {
   left: 0;
   right: 0;
   background-color: $overlayBgColor;
+}
 
-  .modal {
-    background-color: white;
-    width: 300px;
-    margin: auto;
-    padding: 20px;
+.modal {
+  background-color: white;
+  color: darkblue;
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  text-align: center;
+
+  button {
+    cursor: pointer;
+    margin: 0 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: cornflowerblue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: blueviolet;
+    }
   }
 }
