@@ -1,5 +1,4 @@
 import { socket } from "@/utils/socket";
-import { MESSAGE } from "@/constants/messages";
 
 const getPlayerRoles = (players) =>
   players.reduce((acc, player) => {
@@ -10,4 +9,14 @@ const getPlayerRoles = (players) =>
     }
   }, {});
 
-export { getPlayerRoles };
+const getGameResult = ({ winnerId, thisPlayer }) => {
+  if (!winnerId) {
+    return "Tie!";
+  }
+  if (winnerId === thisPlayer.playerId) {
+    return "You won!";
+  }
+  return "You lost!";
+};
+
+export { getPlayerRoles, getGameResult };
