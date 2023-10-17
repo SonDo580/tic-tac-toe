@@ -1,5 +1,36 @@
-$side: 16;
-$borderColor: gray;
+@import "./style/variable";
+
+body {
+  background: $mainBg;
+}
+
+.button {
+  color: yellow;
+  font-size: 1.2rem;
+  background: $buttonBg;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 20px;
+  width: max-content;
+  padding: 10px 20px;
+}
+
+.starter {
+  width: max-content;
+  margin: auto;
+  margin-top: 50px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+
+  h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: white;
+  }
+}
 
 .board {
   display: grid;
@@ -41,7 +72,7 @@ $borderColor: gray;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba($color: #000000, $alpha: 0.5);
+  background-color: $overlayBgColor;
 
   .modal {
     background-color: white;
