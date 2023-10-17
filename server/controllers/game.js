@@ -12,7 +12,7 @@ const moveHandler =
       return;
     }
 
-    // Find current room
+    // Find the room
     const room = searchRoomById(roomId);
     if (!room) {
       return;
@@ -52,7 +52,7 @@ const moveHandler =
     // Swap turn
     swapTurn(room);
 
-    // Notice the players
+    // Notice both players
     socket.emit("boardUpdated", room);
     if (otherPlayer) {
       io.to(otherPlayer.playerId).emit("boardUpdated", room);

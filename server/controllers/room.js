@@ -11,45 +11,55 @@ import {
 } from "../utils/room.js";
 
 const createRoomHandler = (socket) => (playerName) => {
+  // Validate player's name
   if (playerName.trim() === "") {
     socket.emit("nameError");
     return;
   }
 
+  // Create a room with 1 player
   const firstPlayer = { playerId: socket.id, playerName, mark: MARK.X };
   const room = createRoom(firstPlayer);
   addRoom(room);
+
+  // Notice the player
   socket.emit("roomCreated", room);
 };
 
 const joinRoomHandler =
   ({ socket, io }) =>
   ({ playerName, roomID }) => {
+    // Validate player's name
     if (playerName.trim() === "") {
       socket.emit("nameError");
       return;
     }
 
+    // Validate roomID
     if (roomID === "") {
       socket.emit("roomIdEmpty");
       return;
     }
 
+    // Check if the room exists
     const room = searchRoomById(roomID);
     if (!room) {
       socket.emit("roomNotExists");
       return;
     }
 
+    // Check if there are enough players
     if (room.players.length === 2) {
       socket.emit("roomFull");
       return;
     }
 
+    // Add this player as second player
     const secondPlayer = { playerId: socket.id, playerName, mark: MARK.O };
     room.players.push(secondPlayer);
-    socket.emit("roomJoined", room);
 
+    // Notice both players
+    socket.emit("roomJoined", room);
     const firstPlayerId = room.players[0].playerId;
     io.to(firstPlayerId).emit("roomJoined", room);
   };
@@ -57,13 +67,14 @@ const joinRoomHandler =
 const leaveRoomHandler =
   ({ socket, io }) =>
   (roomId) => {
-    const playerId = socket.id;
+    // Find the room
     const room = searchRoomById(roomId);
     if (!room) {
       return;
     }
 
-    // Remove player from room
+    // Remove player from room and notice him/her
+    const playerId = socket.id;
     removePlayer({ room, playerId });
     socket.emit("roomLeaved");
 
@@ -76,7 +87,7 @@ const leaveRoomHandler =
     // Reset room state
     resetRoom(room);
 
-    // Assign X mark for the first player (if needed)
+    // Assign X mark for the other player (if needed)
     const otherPlayer = room.players[0];
     resetMark(otherPlayer);
 
@@ -108,7 +119,7 @@ const disconnectHandler =
     // Reset room state
     resetRoom(room);
 
-    // Assign X mark for the first player (if needed)
+    // Assign X mark for the other player (if needed)
     const otherPlayer = room.players[0];
     resetMark(otherPlayer);
 
