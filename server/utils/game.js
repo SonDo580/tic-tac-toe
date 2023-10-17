@@ -12,4 +12,4 @@ const winnerFound = (highlightCells) => highlightCells.length > 1;
 const gameEnded = (room) =>
   winnerFound(room.highlightCells) || boardFull(room.moveCount);
 
-export { makeMove, gameEnded };
+export { makeMove, winnerFound, gameEnded };

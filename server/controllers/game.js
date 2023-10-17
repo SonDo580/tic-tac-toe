@@ -1,5 +1,5 @@
 import { isEmptyCell, isValidCell } from "../utils/board.js";
-import { gameEnded, makeMove } from "../utils/game.js";
+import { gameEnded, makeMove, winnerFound } from "../utils/game.js";
 import { getHighlightCells } from "../utils/highlighter.js";
 import { swapMark, swapTurn } from "../utils/mark.js";
 import { findPlayer, resetRoom, searchRoomById } from "../utils/room.js";
@@ -47,6 +47,10 @@ const moveHandler =
     makeMove({ room, row, col, mark: turn });
     // Get cells to be highlighted
     room.highlightCells = getHighlightCells(board, row, col, turn);
+    // Check if current player is the winner
+    if (winnerFound(room.highlightCells)) {
+      room.winnerId = socket.id;
+    }
     // Check end game
     room.endGame = gameEnded(room);
     // Swap turn
