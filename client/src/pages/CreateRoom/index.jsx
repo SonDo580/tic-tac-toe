@@ -27,15 +27,20 @@ export default function CreateRoom() {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder={MESSAGE.namePlaceholder}
-        value={name}
-        onChange={changeName}
-      />
-      <span>{nameError}</span>
-      <button>Create Room</button>
+    <form className="wrapper" onSubmit={handleSubmit}>
+      <h1>Create Room</h1>
+
+      <div className="formField">
+        <input
+          type="text"
+          placeholder={MESSAGE.namePlaceholder}
+          value={name}
+          onChange={changeName}
+        />
+        <span className="error">{nameError}</span>
+      </div>
+
+      <button className="button">Create Room</button>
     </form>
   );
 }

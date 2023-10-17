@@ -63,24 +63,30 @@ export default function JoinRoom() {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder={MESSAGE.namePlaceholder}
-        value={name}
-        onChange={changeName}
-      />
-      <span>{nameError}</span>
+    <form className="wrapper" onSubmit={handleSubmit}>
+      <h1>Join a Room</h1>
 
-      <input
-        type="text"
-        placeholder={MESSAGE.roomPlaceholder}
-        value={roomID}
-        onChange={changeRoomID}
-      />
-      <span>{roomError}</span>
+      <div className="formField">
+        <input
+          type="text"
+          placeholder={MESSAGE.namePlaceholder}
+          value={name}
+          onChange={changeName}
+        />
+        <span className="error">{nameError}</span>
+      </div>
 
-      <button>Join</button>
+      <div className="formField">
+        <input
+          type="text"
+          placeholder={MESSAGE.roomPlaceholder}
+          value={roomID}
+          onChange={changeRoomID}
+        />
+        <span className="error">{roomError}</span>
+      </div>
+
+      <button className="button">Join</button>
     </form>
   );
 }
