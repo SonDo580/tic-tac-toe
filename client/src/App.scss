@@ -65,7 +65,7 @@ body {
   grid-template-columns: repeat($side, 1fr);
   grid-template-rows: repeat($side, 1fr);
 
-  width: 500px;
+  width: min(100%, 500px);
   aspect-ratio: 1 / 1;
   margin: auto;
 
