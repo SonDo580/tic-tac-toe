@@ -10,12 +10,4 @@ const getPlayerRoles = (players) =>
     }
   }, {});
 
-const getPlayerDisplay = (player) => {
-  if (!player) {
-    return MESSAGE.waiting;
-  }
-
-  return `${player.playerName} - ${player.mark}`;
-};
-
-export { getPlayerRoles, getPlayerDisplay };
+export { getPlayerRoles };
