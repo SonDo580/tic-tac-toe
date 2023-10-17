@@ -61,7 +61,7 @@ const joinRoomHandler =
     // Notice both players
     socket.emit("roomJoined", room);
     const firstPlayerId = room.players[0].playerId;
-    io.to(firstPlayerId).emit("roomJoined", room);
+    io.to(firstPlayerId).emit("opponentJoined", room);
   };
 
 const leaveRoomHandler =

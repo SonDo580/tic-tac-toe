@@ -1,6 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 import { socket } from "@/utils/socket";
 import { ACTION, initialState, reducer } from "./GameReducer";
@@ -30,6 +31,11 @@ const GameProvider = ({ children }) => {
       navigate("/game");
     });
 
+    socket.on("opponentJoined", (roomInfo) => {
+      initGame(roomInfo);
+      toast("Opponent joined!");
+    });
+
     socket.on("roomLeaved", () => {
       resetGame();
       navigate("/");
@@ -37,6 +43,7 @@ const GameProvider = ({ children }) => {
 
     socket.on("opponentLeaved", (roomInfo) => {
       initGame(roomInfo);
+      toast("Opponent leaved!");
     });
 
     socket.on("boardUpdated", (roomInfo) => {
