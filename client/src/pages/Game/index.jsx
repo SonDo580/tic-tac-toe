@@ -38,6 +38,7 @@ export default function Game() {
     <div>
       <RoomInfo
         roomId={roomId}
+        allowMove={allowMove}
         thisPlayer={thisPlayer}
         otherPlayer={otherPlayer}
       />

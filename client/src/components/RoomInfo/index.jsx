@@ -4,7 +4,12 @@ import { socket } from "@/utils/socket";
 import { MARK } from "@/constants/index";
 import PlayerDisplay from "@/components/PlayerDisplay";
 
-export default function RoomInfo({ thisPlayer, otherPlayer, roomId }) {
+export default function RoomInfo({
+  roomId,
+  allowMove,
+  thisPlayer,
+  otherPlayer,
+}) {
   const leaveRoom = () => {
     socket.emit("leaveRoom", roomId);
   };
@@ -25,6 +30,9 @@ export default function RoomInfo({ thisPlayer, otherPlayer, roomId }) {
       </div>
 
       <div>
+        <span className="turn">
+          {allowMove ? "Your turn" : "Opponent's turn"}
+        </span>
         <button className="button" onClick={copyRoomId}>
           Room ID
         </button>

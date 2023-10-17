@@ -69,6 +69,10 @@ body {
   gap: 10px;
   padding: 10px 0;
 
+  .turn {
+    color: lightgreen;
+  }
+
   .players {
     display: flex;
     justify-content: space-around;
