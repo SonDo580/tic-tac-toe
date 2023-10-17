@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 export default function Confirm({
+  result,
   question,
   okText,
   cancelText,
@@ -10,7 +11,9 @@ export default function Confirm({
   return (
     <div className="overlay">
       <div className="modal">
-        <p>{question}</p>
+        <p>
+          {result} {question}
+        </p>
         <button onClick={onOk}>{okText}</button>
         <button onClick={onCancel}>{cancelText}</button>
       </div>
@@ -24,6 +27,7 @@ Confirm.defaultProps = {
 };
 
 Confirm.propTypes = {
+  result: PropTypes.string.isRequired,
   question: PropTypes.string.isRequired,
   okText: PropTypes.string,
   cancelText: PropTypes.string,
