@@ -6,9 +6,7 @@ import { GameContext } from "@/context/GameContext";
 import Cell from "@/components/Cell";
 
 export default function Board({ allowMove }) {
-  const {
-    state: { roomId, board, highlightCells },
-  } = useContext(GameContext);
+  const { roomId, board, highlightCells } = useContext(GameContext);
 
   const shouldHighlight = (row, col) =>
     highlightCells.includes(`${row}-${col}`);

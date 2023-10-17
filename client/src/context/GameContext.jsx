@@ -19,8 +19,6 @@ const GameProvider = ({ children }) => {
     dispatch({ type: ACTION.RESET_GAME });
   };
 
-  const contextValue = { state, initGame };
-
   useEffect(() => {
     socket.on("roomCreated", (roomInfo) => {
       initGame(roomInfo);
@@ -50,9 +48,7 @@ const GameProvider = ({ children }) => {
     });
   }, []);
 
-  return (
-    <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>
-  );
+  return <GameContext.Provider value={state}>{children}</GameContext.Provider>;
 };
 
 GameProvider.propTypes = {

@@ -10,9 +10,7 @@ import Confirm from "@/components/Confirm";
 
 export default function Game() {
   const navigate = useNavigate();
-  const {
-    state: { roomId, players, turn, endGame },
-  } = useContext(GameContext);
+  const { roomId, players, turn, endGame } = useContext(GameContext);
 
   const leaveRoom = () => {
     socket.emit("leaveRoom", roomId);
