@@ -8,12 +8,12 @@ export default function Confirm({
   onOk,
   onCancel,
 }) {
+  const fullText = result ? `${result} ${question}` : question;
+
   return (
     <div className="overlay">
       <div className="modal">
-        <p>
-          {result} {question}
-        </p>
+        <p>{fullText}</p>
         <button onClick={onOk}>{okText}</button>
         <button onClick={onCancel}>{cancelText}</button>
       </div>
@@ -27,7 +27,7 @@ Confirm.defaultProps = {
 };
 
 Confirm.propTypes = {
-  result: PropTypes.string.isRequired,
+  result: PropTypes.string,
   question: PropTypes.string.isRequired,
   okText: PropTypes.string,
   cancelText: PropTypes.string,
