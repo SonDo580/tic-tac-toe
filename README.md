@@ -16,13 +16,14 @@ A real-time 2-player Tic-Tac-Toe game built with ReactJS, NodeJS, and Socket.io.
 
 ## Demo
 
-https://sondm-tictactoe.netlify.app
+Link website: https://sondm-tictactoe.netlify.app
 
 ## Features
 
 - Real-time 2-player gameplay.
 - A 16x16 game board for added complexity.
-- Create room, join room, leave room, rematch handling.
+- Handle cells highlighting.
+- Create/join/leave room and rematch handling.
 - Responsive design for great user experience on various devices.
 - Socket.io integration for real-time updates and multiplayer functionality.
 
@@ -80,8 +81,10 @@ https://sondm-tictactoe.netlify.app
 
 ## How to Play
 
-1. Create a new room, get the room ID and send it to your friend. Or join an existing room with a received room ID.
+1. Create a new room, get the room ID and send it to your friend. Or join an existing room using room ID.
 
-2. Play the game according to `Game Rules`
+2. Play the game according to `Game Rules`.
 
-3. When the game is finished, you will be asked to play again. You can also leave the room at any time.
+3. When the game is finished, you will be asked to play again.
+
+4. You can also request a rematch or leave the room at any time.
