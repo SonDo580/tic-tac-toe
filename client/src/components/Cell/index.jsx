@@ -1,18 +1,5 @@
 import PropTypes from "prop-types";
-
-import { MARK } from "@/constants";
-
-const COLOR_CLASS = {
-  [MARK.X]: "x",
-  [MARK.O]: "o",
-};
-
-const getColorClass = (mark) => COLOR_CLASS[mark] || "";
-
-const getHighlightClass = (highlight) => (highlight ? "highlight" : "");
-
-const getCellClass = (mark, highlight) =>
-  ["cell", getColorClass(mark), getHighlightClass(highlight)].join(" ");
+import { getCellClass } from "@/utils/cell";
 
 export default function Cell({ mark, highlight, row, col, selectCell }) {
   const handleClick = () => {
