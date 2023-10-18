@@ -84,4 +84,4 @@ https://sondm-tictactoe.netlify.app
 
 2. Play the game according to `Game Rules`
 
-3. When the game is finished, you will be asked to play again. But you can also leave the room at any time.
+3. When the game is finished, you will be asked to play again. You can also leave the room at any time.
