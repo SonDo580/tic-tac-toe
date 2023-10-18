@@ -34,6 +34,15 @@ body {
     margin: 0;
     font-size: 2.5rem;
   }
+
+  .link {
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 }
 
 .formField {
