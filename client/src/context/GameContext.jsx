@@ -54,6 +54,11 @@ const GameProvider = ({ children }) => {
     socket.on("rematched", (roomInfo) => {
       initGame(roomInfo);
     });
+
+    socket.on("resetAccepted", (roomInfo) => {
+      initGame(roomInfo);
+      toast(MESSAGE.resetSuccessful);
+    });
   }, []);
 
   return <GameContext.Provider value={state}>{children}</GameContext.Provider>;
