@@ -23,7 +23,12 @@ export default function RoomInfo({
     toast(MESSAGE.roomIdCopied);
   };
 
-  const requestReset = () => {};
+  const requestReset = () => {
+    socket.emit("resetRequest", roomId);
+    if (otherPlayer) {
+      toast(MESSAGE.resetRequested);
+    }
+  };
 
   useEffect(() => {
     toast(getTurnDisplay(allowMove));
@@ -41,9 +46,6 @@ export default function RoomInfo({
       </div>
 
       <div>
-        <span className="turn">
-          {allowMove ? "Your turn" : "Opponent's turn"}
-        </span>
         <button className="button" onClick={copyRoomId}>
           Room ID
         </button>
