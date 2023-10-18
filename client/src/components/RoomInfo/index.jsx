@@ -2,9 +2,11 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
 import { socket } from "@/utils/socket";
+import { getTurnDisplay } from "@/utils";
 import { MARK } from "@/constants/index";
 import { MESSAGE } from "@/constants/messages";
 import PlayerDisplay from "@/components/PlayerDisplay";
+import { useEffect } from "react";
 
 export default function RoomInfo({
   roomId,
@@ -20,6 +22,12 @@ export default function RoomInfo({
     navigator.clipboard.writeText(roomId);
     toast(MESSAGE.roomIdCopied);
   };
+
+  const requestReset = () => {};
+
+  useEffect(() => {
+    toast(getTurnDisplay(allowMove));
+  }, []);
 
   return (
     <div className="roomInfo">
@@ -38,6 +46,9 @@ export default function RoomInfo({
         </span>
         <button className="button" onClick={copyRoomId}>
           Room ID
+        </button>
+        <button className="button" onClick={requestReset}>
+          Reset
         </button>
         <button className="button" onClick={leaveRoom}>
           Leave
