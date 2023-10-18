@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
@@ -64,6 +66,9 @@ export default function JoinRoom() {
 
   return (
     <form className="wrapper" onSubmit={handleSubmit}>
+      <Link to="/" className="link">
+        <FaArrowLeft /> Back to Home
+      </Link>
       <h1>Join a Room</h1>
 
       <div className="formField">
