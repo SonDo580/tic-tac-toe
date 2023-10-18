@@ -9,6 +9,9 @@ const getPlayerRoles = (players) =>
     }
   }, {});
 
+const getTurnDisplay = (allowMove) =>
+  allowMove ? "Your turn" : "Opponent's turn";
+
 const getGameResult = ({ winnerId, thisPlayer }) => {
   if (!winnerId) {
     return "Tie!";
@@ -19,4 +22,4 @@ const getGameResult = ({ winnerId, thisPlayer }) => {
   return "You lost!";
 };
 
-export { getPlayerRoles, getGameResult };
+export { getPlayerRoles, getTurnDisplay, getGameResult };
