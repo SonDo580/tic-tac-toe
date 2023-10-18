@@ -10,6 +10,10 @@ const MESSAGE = {
   playAgain: "Play again?",
   opponentJoined: "Opponent joined!",
   opponentLeaved: "Opponent leaved!",
+  resetRequested: "Reset request sent!",
+  resetQuestion: "Opponent wants to reset! Agree?",
+  resetSuccessful: "Reset game successfully!",
+  resetRejected: "Opponent rejected! Keep playing!",
 };
 
 export { MESSAGE };
