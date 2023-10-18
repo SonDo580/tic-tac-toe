@@ -82,4 +82,89 @@ const rematchHandler = (socket) => (roomId) => {
   socket.emit("rematched", room);
 };
 
-export { moveHandler, rematchHandler };
+const resetRequestHandler =
+  ({ socket, io }) =>
+  (roomId) => {
+    // Find the room
+    const room = searchRoomById(roomId);
+    if (!room) {
+      return;
+    }
+
+    // Find players in the room
+    const { thisPlayer, otherPlayer } = findPlayer({
+      room,
+      playerId: socket.id,
+    });
+    if (!thisPlayer) {
+      return;
+    }
+
+    // Allow reset if there's only 1 player
+    if (!otherPlayer) {
+      // Reset room state
+      resetRoom(room);
+      // Notice current player
+      socket.emit("resetAccepted", room);
+      return;
+    }
+
+    // Ask for the other player's acceptance
+    io.to(otherPlayer.playerId).emit("resetRequest");
+  };
+
+const resetAcceptHandler =
+  ({ socket, io }) =>
+  (roomId) => {
+    // Find the room
+    const room = searchRoomById(roomId);
+    if (!room) {
+      return;
+    }
+
+    // Find players in the room
+    const { thisPlayer, otherPlayer } = findPlayer({
+      room,
+      playerId: socket.id,
+    });
+    if (!thisPlayer || !otherPlayer) {
+      return;
+    }
+
+    // Reset room state
+    resetRoom(room);
+
+    // Notify both players
+    socket.emit("resetAccepted", room);
+    io.to(otherPlayer.playerId).emit("resetAccepted", room);
+  };
+
+const resetRejectHandler =
+  ({ socket, io }) =>
+  (roomId) => {
+    // Find the room
+    const room = searchRoomById(roomId);
+    if (!room) {
+      return;
+    }
+
+    // Find players in the room
+    const { thisPlayer, otherPlayer } = findPlayer({
+      room,
+      playerId: socket.id,
+    });
+    if (!thisPlayer || !otherPlayer) {
+      return;
+    }
+
+    // Notify the other player
+    io.to(otherPlayer.playerId).emit("resetRejected");
+  };
+
+export {
+  moveHandler,
+  rematchHandler,
+  resetRequestHandler,
+  resetAcceptHandler,
+  resetRejectHandler,
+};
