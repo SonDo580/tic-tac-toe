@@ -70,7 +70,7 @@ https://sondm-tictactoe.netlify.app
    yarn dev
    ```
 
-3. Access the game in your web browser at `http://localhost:5713` by default.
+3. Access the game in your web browser at `http://localhost:5173` by default.
 
 ## Game Rules
 
