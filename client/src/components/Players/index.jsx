@@ -1,10 +1,10 @@
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
 import { getTurnDisplay } from "@/utils";
 import { MARK } from "@/constants/index";
 import PlayerDisplay from "@/components/PlayerDisplay";
-import { useEffect } from "react";
 
 export default function Players({ allowMove, thisPlayer, otherPlayer }) {
   useEffect(() => {
