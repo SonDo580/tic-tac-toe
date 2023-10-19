@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
+import useScreen from "@/hooks/useScreen";
 
 export default function Starter() {
+  const { isMobile } = useScreen();
+  const gameTitle = `${!isMobile ? "Welcome to" : ""} Tic-Tac-Toe`;
+
   return (
     <div className="wrapper">
-      <h1>Welcome to Tic-Tac-Toe</h1>
+      <h1>{gameTitle}</h1>
       <Link to="create" className="button">
         Create room
       </Link>
