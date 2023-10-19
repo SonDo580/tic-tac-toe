@@ -6,9 +6,10 @@ import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
 import { getPlayerRoles, getGameResult } from "@/utils";
 import { GameContext } from "@/context/GameContext";
-import Board from "@/components/Board";
 import Confirm from "@/components/Confirm";
-import RoomInfo from "@/components/RoomInfo";
+import Board from "@/components/Board";
+import Players from "@/components/Players";
+import Controls from "@/components/Controls";
 
 export default function Game() {
   const navigate = useNavigate();
@@ -57,15 +58,14 @@ export default function Game() {
   const allowMove = thisPlayer.mark === turn;
 
   return (
-    <div>
-      <RoomInfo
-        roomId={roomId}
+    <>
+      <Players
         allowMove={allowMove}
         thisPlayer={thisPlayer}
         otherPlayer={otherPlayer}
       />
-
       <Board allowMove={allowMove} />
+      <Controls roomId={roomId} otherPlayer={otherPlayer} />
 
       {resetPopupVisible && (
         <Confirm
@@ -83,6 +83,6 @@ export default function Game() {
           onCancel={leaveRoom}
         />
       )}
-    </div>
+    </>
   );
 }
