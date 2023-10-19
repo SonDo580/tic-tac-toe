@@ -75,8 +75,10 @@ body {
   text-align: center;
   font-size: 1.2rem;
   display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: auto;
+  padding: 10px 20px;
 
   .player {
     display: inline;
@@ -171,11 +173,10 @@ body {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   .players {
     flex-direction: column;
     gap: 5px;
     align-items: flex-start;
-    padding: 10px 20px;
   }
 }
