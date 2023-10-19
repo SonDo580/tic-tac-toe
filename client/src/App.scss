@@ -46,7 +46,8 @@ body {
 }
 
 .formField {
-  width: 400px;
+  width: min(400px, 95%);
+  margin: auto;
 
   input {
     display: block;
