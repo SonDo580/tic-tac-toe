@@ -70,23 +70,13 @@ body {
   }
 }
 
-.roomInfo {
+.players {
   color: white;
   text-align: center;
   font-size: 1.2rem;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: space-around;
   padding: 10px 0;
-
-  .turn {
-    color: lightgreen;
-  }
-
-  .players {
-    display: flex;
-    justify-content: space-around;
-  }
 
   .player {
     display: inline;
@@ -96,10 +86,16 @@ body {
       font-size: 1.5rem;
     }
   }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
 
   .button {
     font-size: 1rem;
-    margin: 0 5px;
   }
 }
 
@@ -172,5 +168,14 @@ body {
     &:hover {
       background-color: blueviolet;
     }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .players {
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    padding: 10px 20px;
   }
 }
