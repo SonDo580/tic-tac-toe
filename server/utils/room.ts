@@ -1,11 +1,16 @@
 import { v4 as uuid } from "uuid";
 
-import { MARK } from "../constants.js";
-import { createBoard } from "./board.js";
+import type { Player, Room } from "../types";
+import { MARK } from "../constants";
+import { createBoard } from "./board";
 
-const rooms = {};
+type Rooms = {
+  [index: string]: Room;
+};
 
-const createRoom = (firstPlayer) => ({
+const rooms: Rooms = {};
+
+const createRoom = (firstPlayer: Player): Room => ({
   roomId: uuid(),
   players: [firstPlayer],
   board: createBoard(),
@@ -15,11 +20,11 @@ const createRoom = (firstPlayer) => ({
   moveCount: 0,
 });
 
-const addRoom = (room) => {
+const addRoom = (room: Room) => {
   rooms[room.roomId] = room;
 };
 
-const resetRoom = (room) => {
+const resetRoom = (room: Room) => {
   room.board = createBoard();
   room.highlightCells = [];
   room.turn = MARK.X;
@@ -27,15 +32,15 @@ const resetRoom = (room) => {
   room.moveCount = 0;
 };
 
-const searchRoomById = (roomId) => rooms[roomId];
+const searchRoomById = (roomId: string) => rooms[roomId];
 
-const searchRoomByPlayer = (playerId) => {
+const searchRoomByPlayer = (playerId: string) => {
   return Object.values(rooms).find((r) =>
     r.players.some((p) => p.playerId === playerId)
   );
 };
 
-const findPlayer = ({ room, playerId }) =>
+const findPlayer = (room: Room, playerId: string) =>
   room.players.reduce(
     (acc, p) =>
       p.playerId === playerId
@@ -44,11 +49,11 @@ const findPlayer = ({ room, playerId }) =>
     {}
   );
 
-const removePlayer = ({ room, playerId }) => {
+const removePlayer = (room: Room, playerId: string) => {
   room.players = room.players.filter((p) => p.playerId !== playerId);
 };
 
-const deleteRoom = (room) => {
+const deleteRoom = (room: Room) => {
   delete rooms[room.roomId];
 };
 
