@@ -1,14 +1,16 @@
-import { isEmptyCell, isValidCell } from "../utils/board.js";
-import { gameEnded, makeMove, winnerFound } from "../utils/game.js";
-import { getHighlightCells } from "../utils/highlighter.js";
-import { swapMark, swapTurn } from "../utils/mark.js";
-import { findPlayer, resetRoom, searchRoomById } from "../utils/room.js";
+import { Server, Socket } from "socket.io";
+
+import { isEmptyCell, isValidCell } from "../utils/board";
+import { gameEnded, makeMove, winnerFound } from "../utils/game";
+import { getHighlightCells } from "../utils/highlighter";
+import { swapMark, swapTurn } from "../utils/mark";
+import { findPlayer, resetRoom, searchRoomById } from "../utils/room";
 
 const moveHandler =
-  ({ socket, io }) =>
-  ({ roomId, row, col }) => {
+  (socket: Socket, io: Server) =>
+  (roomId: string, row: number, col: number) => {
     // Check row and col
-    if (!isValidCell({ row, col })) {
+    if (!isValidCell(row, col)) {
       return;
     }
 
@@ -24,10 +26,7 @@ const moveHandler =
     }
 
     // Find players in the room
-    const { thisPlayer, otherPlayer } = findPlayer({
-      room,
-      playerId: socket.id,
-    });
+    const { thisPlayer, otherPlayer } = findPlayer(room, socket.id);
     if (!thisPlayer) {
       return;
     }
@@ -39,12 +38,12 @@ const moveHandler =
     }
 
     // Check if the cell is empty
-    if (!isEmptyCell({ board, row, col })) {
+    if (!isEmptyCell(board, row, col)) {
       return;
     }
 
     // Handle the move
-    makeMove({ room, row, col, mark: turn });
+    makeMove(room, row, col, turn);
     // Get cells to be highlighted
     room.highlightCells = getHighlightCells(board, row, col, turn);
     // Check if current player is the winner
@@ -63,7 +62,7 @@ const moveHandler =
     }
   };
 
-const rematchHandler = (socket) => (roomId) => {
+const rematchHandler = (socket: Socket) => (roomId: string) => {
   // Find the room
   const room = searchRoomById(roomId);
   if (!room) {
@@ -83,8 +82,7 @@ const rematchHandler = (socket) => (roomId) => {
 };
 
 const resetRequestHandler =
-  ({ socket, io }) =>
-  (roomId) => {
+  (socket: Socket, io: Server) => (roomId: string) => {
     // Find the room
     const room = searchRoomById(roomId);
     if (!room) {
@@ -92,10 +90,7 @@ const resetRequestHandler =
     }
 
     // Find players in the room
-    const { thisPlayer, otherPlayer } = findPlayer({
-      room,
-      playerId: socket.id,
-    });
+    const { thisPlayer, otherPlayer } = findPlayer(room, socket.id);
     if (!thisPlayer) {
       return;
     }
@@ -113,53 +108,43 @@ const resetRequestHandler =
     io.to(otherPlayer.playerId).emit("resetRequest");
   };
 
-const resetAcceptHandler =
-  ({ socket, io }) =>
-  (roomId) => {
-    // Find the room
-    const room = searchRoomById(roomId);
-    if (!room) {
-      return;
-    }
+const resetAcceptHandler = (socket: Socket, io: Server) => (roomId: string) => {
+  // Find the room
+  const room = searchRoomById(roomId);
+  if (!room) {
+    return;
+  }
 
-    // Find players in the room
-    const { thisPlayer, otherPlayer } = findPlayer({
-      room,
-      playerId: socket.id,
-    });
-    if (!thisPlayer || !otherPlayer) {
-      return;
-    }
+  // Find players in the room
+  const { thisPlayer, otherPlayer } = findPlayer(room, socket.id);
+  if (!thisPlayer || !otherPlayer) {
+    return;
+  }
 
-    // Reset room state
-    resetRoom(room);
+  // Reset room state
+  resetRoom(room);
 
-    // Notify both players
-    socket.emit("resetAccepted", room);
-    io.to(otherPlayer.playerId).emit("resetAccepted", room);
-  };
+  // Notify both players
+  socket.emit("resetAccepted", room);
+  io.to(otherPlayer.playerId).emit("resetAccepted", room);
+};
 
-const resetRejectHandler =
-  ({ socket, io }) =>
-  (roomId) => {
-    // Find the room
-    const room = searchRoomById(roomId);
-    if (!room) {
-      return;
-    }
+const resetRejectHandler = (socket: Socket, io: Server) => (roomId: string) => {
+  // Find the room
+  const room = searchRoomById(roomId);
+  if (!room) {
+    return;
+  }
 
-    // Find players in the room
-    const { thisPlayer, otherPlayer } = findPlayer({
-      room,
-      playerId: socket.id,
-    });
-    if (!thisPlayer || !otherPlayer) {
-      return;
-    }
+  // Find players in the room
+  const { thisPlayer, otherPlayer } = findPlayer(room, socket.id);
+  if (!thisPlayer || !otherPlayer) {
+    return;
+  }
 
-    // Notify the other player
-    io.to(otherPlayer.playerId).emit("resetRejected");
-  };
+  // Notify the other player
+  io.to(otherPlayer.playerId).emit("resetRejected");
+};
 
 export {
   moveHandler,
