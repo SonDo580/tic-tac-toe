@@ -1,15 +1,11 @@
-import type { Board } from "../types/index";
-import { SIDE, DIRECTION, WIN_COUNT, MARK, DIRECTION_KEY } from "../constants";
+import type { Board } from "../types";
+import { SIDE, DIRECTION, WIN_COUNT, MARK } from "../constants";
 import { countAllDirections } from "./counter";
 
-type HighlightArg = {
-  board: Board;
-  row: number;
-  column: number;
-  mark: MARK;
-};
+type HighlightArg = [board: Board, row: number, column: number, mark: MARK];
 
-const highlightHorizontal = ({ board, row, column, mark }: HighlightArg) => {
+const highlightHorizontal = (...args: HighlightArg) => {
+  const [board, row, column, mark] = args;
   const highlightCells: string[] = [];
   let currentColumn = column;
 
@@ -31,7 +27,8 @@ const highlightHorizontal = ({ board, row, column, mark }: HighlightArg) => {
   return highlightCells;
 };
 
-const highlightVertical = ({ board, row, column, mark }: HighlightArg) => {
+const highlightVertical = (...args: HighlightArg) => {
+  const [board, row, column, mark] = args;
   const highlightCells: string[] = [];
   let currentRow = row;
 
@@ -53,12 +50,8 @@ const highlightVertical = ({ board, row, column, mark }: HighlightArg) => {
   return highlightCells;
 };
 
-const highlightNorthWest_SouthEast = ({
-  board,
-  row,
-  column,
-  mark,
-}: HighlightArg) => {
+const highlightNorthWest_SouthEast = (...args: HighlightArg) => {
+  const [board, row, column, mark] = args;
   const highlightCells: string[] = [];
   let currentRow = row;
   let currentColumn = column;
@@ -82,12 +75,8 @@ const highlightNorthWest_SouthEast = ({
   return highlightCells;
 };
 
-const highlightNorthEast_SouthWest = ({
-  board,
-  row,
-  column,
-  mark,
-}: HighlightArg) => {
+const highlightNorthEast_SouthWest = (...args: HighlightArg) => {
+  const [board, row, column, mark] = args;
   const highlightCells: string[] = [];
   let currentRow = row;
   let currentColumn = column;
@@ -111,33 +100,34 @@ const highlightNorthEast_SouthWest = ({
   return highlightCells;
 };
 
-const hightLightDirection = (direction: DIRECTION, arg: HighlightArg) => {
+const hightLightDirection = (direction: DIRECTION, ...args: HighlightArg) => {
   switch (direction) {
     case DIRECTION.horizontal:
-      return highlightHorizontal(arg);
+      return highlightHorizontal(...args);
     case DIRECTION.vertical:
-      return highlightVertical(arg);
+      return highlightVertical(...args);
     case DIRECTION.northwest_southeast:
-      return highlightNorthWest_SouthEast(arg);
+      return highlightNorthWest_SouthEast(...args);
     case DIRECTION.northeast_southwest:
-      return highlightNorthEast_SouthWest(arg);
+      return highlightNorthEast_SouthWest(...args);
     default:
       return [];
   }
 };
 
-const getHighlightCells = (arg: HighlightArg) => {
+const getHighlightCells = (...args: HighlightArg) => {
   // Always highlight the last selected cell
-  const { row, column } = arg;
+  const [_, row, column] = args;
   const highlightCells = [`${row}-${column}`];
 
-  const markCount = countAllDirections(arg);
-
+  const markCount = countAllDirections(...args);
   for (const [direction, count] of Object.entries(markCount)) {
     if (count < WIN_COUNT) {
       continue;
     }
-    highlightCells.push(...hightLightDirection(direction as DIRECTION, arg));
+    highlightCells.push(
+      ...hightLightDirection(direction as DIRECTION, ...args)
+    );
   }
 
   return highlightCells;
