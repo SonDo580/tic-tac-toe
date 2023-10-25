@@ -40,7 +40,12 @@ const searchRoomByPlayer = (playerId: string) => {
   );
 };
 
-const findPlayer = (room: Room, playerId: string) =>
+type FindPlayerReturnType = {
+  thisPlayer?: Player;
+  otherPlayer?: Player;
+};
+
+const findPlayer = (room: Room, playerId: string): FindPlayerReturnType =>
   room.players.reduce(
     (acc, p) =>
       p.playerId === playerId
