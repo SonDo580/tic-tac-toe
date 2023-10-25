@@ -12,7 +12,7 @@ type Player = {
 };
 
 type Room = {
-  roomId: UUID;
+  roomId: string;
   players: Player[];
   board: Board;
   turn: MARK;
