@@ -13,6 +13,4 @@ const enum DIRECTION {
   northeast_southwest = "northeast_southwest",
 }
 
-type DIRECTION_KEY = keyof typeof DIRECTION;
-
-export { MARK, DIRECTION, SIDE, WIN_COUNT, DIRECTION_KEY };
+export { MARK, DIRECTION, SIDE, WIN_COUNT };
