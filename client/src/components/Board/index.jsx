@@ -15,7 +15,7 @@ export default function Board({ allowMove }) {
     if (!allowMove) {
       return;
     }
-    socket.emit("move", { roomId, row, col });
+    socket.emit("move", roomId, row, col);
   };
 
   return (
