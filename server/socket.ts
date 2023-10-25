@@ -1,3 +1,4 @@
+import type { Server as HttpServer } from "http";
 import { Server } from "socket.io";
 
 import {
@@ -5,15 +6,15 @@ import {
   disconnectHandler,
   joinRoomHandler,
   leaveRoomHandler,
-} from "./controllers/room.js";
+} from "./controllers/room";
 import {
   moveHandler,
   rematchHandler,
   resetAcceptHandler,
   resetRejectHandler,
-} from "./controllers/game.js";
+} from "./controllers/game";
 
-const runSocketIO = (httpServer) => {
+const runSocketIO = (httpServer: HttpServer) => {
   const allowedOrigins = [
     "https://sondm-tictactoe.netlify.app",
     "http://localhost:5173",
