@@ -12,10 +12,10 @@ export default function JoinRoom() {
     setName(event.target.value);
   };
 
-  const [roomID, setRoomID] = useState("");
+  const [roomId, setRoomId] = useState("");
   const [roomError, setRoomError] = useState("");
-  const changeRoomID = (event) => {
-    setRoomID(event.target.value);
+  const changeRoomId = (event) => {
+    setRoomId(event.target.value);
   };
 
   const formHasError = () => {
@@ -28,7 +28,7 @@ export default function JoinRoom() {
       setNameError("");
     }
 
-    if (roomID === "") {
+    if (roomId === "") {
       setRoomError(MESSAGE.roomIdEmpty);
       hasError = true;
     } else {
@@ -43,7 +43,7 @@ export default function JoinRoom() {
     if (formHasError()) {
       return;
     }
-    socket.emit("joinRoom", { playerName: name, roomID });
+    socket.emit("joinRoom", name, roomId);
   };
 
   useEffect(() => {
@@ -85,8 +85,8 @@ export default function JoinRoom() {
         <input
           type="text"
           placeholder={MESSAGE.roomPlaceholder}
-          value={roomID}
-          onChange={changeRoomID}
+          value={roomId}
+          onChange={changeRoomId}
         />
         <span className="error">{roomError}</span>
       </div>
