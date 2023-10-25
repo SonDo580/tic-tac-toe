@@ -1,12 +1,13 @@
-import { MARK } from "../constants.js";
+import { MARK } from "../constants";
+import type { Player, Room } from "../types";
 
-const resetMark = (player) => {
+const resetMark = (player: Player) => {
   if (player.mark === MARK.O) {
     player.mark = MARK.X;
   }
 };
 
-const swapMark = (players) => {
+const swapMark = (players: Player[]) => {
   if (players.length !== 2) {
     return;
   }
@@ -14,7 +15,7 @@ const swapMark = (players) => {
   [players[1].mark, players[0].mark] = [players[0].mark, players[1].mark];
 };
 
-const swapTurn = (room) => {
+const swapTurn = (room: Room) => {
   if (room.turn === MARK.X) {
     room.turn = MARK.O;
   } else {
