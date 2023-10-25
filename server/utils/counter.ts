@@ -1,14 +1,10 @@
 import type { Board } from "../types";
 import { SIDE, DIRECTION, MARK } from "../constants";
 
-type CountArg = {
-  board: Board;
-  row: number;
-  column: number;
-  mark: MARK;
-};
+type CountArg = [board: Board, row: number, column: number, mark: MARK];
 
-const countHorizontal = ({ board, row, column, mark }: CountArg) => {
+const countHorizontal = (...args: CountArg) => {
+  const [board, row, column, mark] = args;
   let markNumber = 1;
   let currentColumn = column;
 
@@ -30,7 +26,8 @@ const countHorizontal = ({ board, row, column, mark }: CountArg) => {
   return markNumber;
 };
 
-const countVertical = ({ board, row, column, mark }: CountArg) => {
+const countVertical = (...args: CountArg) => {
+  const [board, row, column, mark] = args;
   let markNumber = 1;
   let currentRow = row;
 
@@ -52,7 +49,8 @@ const countVertical = ({ board, row, column, mark }: CountArg) => {
   return markNumber;
 };
 
-const countNorthWest_SouthEast = ({ board, row, column, mark }: CountArg) => {
+const countNorthWest_SouthEast = (...args: CountArg) => {
+  const [board, row, column, mark] = args;
   let markNumber = 1;
   let currentRow = row;
   let currentColumn = column;
@@ -76,7 +74,8 @@ const countNorthWest_SouthEast = ({ board, row, column, mark }: CountArg) => {
   return markNumber;
 };
 
-const countNorthEast_SouthWest = ({ board, row, column, mark }: CountArg) => {
+const countNorthEast_SouthWest = (...args: CountArg) => {
+  const [board, row, column, mark] = args;
   let markNumber = 1;
   let currentRow = row;
   let currentColumn = column;
@@ -100,12 +99,12 @@ const countNorthEast_SouthWest = ({ board, row, column, mark }: CountArg) => {
   return markNumber;
 };
 
-const countAllDirections = (arg: CountArg) => {
+const countAllDirections = (...arg: CountArg) => {
   const markCount = {
-    [DIRECTION.horizontal]: countHorizontal(arg),
-    [DIRECTION.vertical]: countVertical(arg),
-    [DIRECTION.northwest_southeast]: countNorthWest_SouthEast(arg),
-    [DIRECTION.northeast_southwest]: countNorthEast_SouthWest(arg),
+    [DIRECTION.horizontal]: countHorizontal(...arg),
+    [DIRECTION.vertical]: countVertical(...arg),
+    [DIRECTION.northwest_southeast]: countNorthWest_SouthEast(...arg),
+    [DIRECTION.northeast_southwest]: countNorthEast_SouthWest(...arg),
   };
 
   return markCount;
