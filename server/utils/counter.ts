@@ -1,6 +1,14 @@
-import { SIDE, DIRECTION } from "../constants.js";
+import type { Board } from "../types";
+import { SIDE, DIRECTION, MARK } from "../constants";
 
-const countHorizontal = (board, row, column, mark) => {
+type CountArg = {
+  board: Board;
+  row: number;
+  column: number;
+  mark: MARK;
+};
+
+const countHorizontal = ({ board, row, column, mark }: CountArg) => {
   let markNumber = 1;
   let currentColumn = column;
 
@@ -22,7 +30,7 @@ const countHorizontal = (board, row, column, mark) => {
   return markNumber;
 };
 
-const countVertical = (board, row, column, mark) => {
+const countVertical = ({ board, row, column, mark }: CountArg) => {
   let markNumber = 1;
   let currentRow = row;
 
@@ -44,7 +52,7 @@ const countVertical = (board, row, column, mark) => {
   return markNumber;
 };
 
-const countNorthWest_SouthEast = (board, row, column, mark) => {
+const countNorthWest_SouthEast = ({ board, row, column, mark }: CountArg) => {
   let markNumber = 1;
   let currentRow = row;
   let currentColumn = column;
@@ -68,7 +76,7 @@ const countNorthWest_SouthEast = (board, row, column, mark) => {
   return markNumber;
 };
 
-const countNorthEast_SouthWest = (board, row, column, mark) => {
+const countNorthEast_SouthWest = ({ board, row, column, mark }: CountArg) => {
   let markNumber = 1;
   let currentRow = row;
   let currentColumn = column;
@@ -92,12 +100,12 @@ const countNorthEast_SouthWest = (board, row, column, mark) => {
   return markNumber;
 };
 
-const countAllDirections = (...args) => {
+const countAllDirections = (arg: CountArg) => {
   const markCount = {
-    [DIRECTION.horizontal]: countHorizontal(...args),
-    [DIRECTION.vertical]: countVertical(...args),
-    [DIRECTION.northwest_southeast]: countNorthWest_SouthEast(...args),
-    [DIRECTION.northeast_southwest]: countNorthEast_SouthWest(...args),
+    [DIRECTION.horizontal]: countHorizontal(arg),
+    [DIRECTION.vertical]: countVertical(arg),
+    [DIRECTION.northwest_southeast]: countNorthWest_SouthEast(arg),
+    [DIRECTION.northeast_southwest]: countNorthEast_SouthWest(arg),
   };
 
   return markCount;
