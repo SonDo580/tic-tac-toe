@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import type { Player } from "@/types";
 import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
 import { getPlayerRoles, getGameResult } from "@/utils/game";
@@ -55,7 +54,7 @@ export default function Game() {
     return null;
   }
 
-  const { thisPlayer, otherPlayer } = getPlayerRoles(players as Player[]);
+  const { thisPlayer, otherPlayer } = getPlayerRoles(players!);
   const allowMove = thisPlayer!.mark === turn;
 
   return (
@@ -78,7 +77,7 @@ export default function Game() {
 
       {endGame && (
         <Confirm
-          result={getGameResult(thisPlayer as Player, winnerId)}
+          result={getGameResult(thisPlayer!, winnerId)}
           question={MESSAGE.playAgain}
           onOk={rematch}
           onCancel={leaveRoom}
