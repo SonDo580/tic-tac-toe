@@ -47,21 +47,33 @@ export default function JoinRoom() {
   };
 
   useEffect(() => {
-    socket.on("nameError", () => {
+    const nameErrorHandler = () => {
       setNameError(MESSAGE.nameError);
-    });
+    };
 
-    socket.on("roomIdEmpty", () => {
+    const roomIdEmptyHandler = () => {
       setRoomError(MESSAGE.roomIdEmpty);
-    });
+    };
 
-    socket.on("roomNotExists", () => {
+    const roomNotExistsHandler = () => {
       setRoomError(MESSAGE.roomNotExists);
-    });
+    };
 
-    socket.on("roomFull", () => {
+    const roomFullHandler = () => {
       setRoomError(MESSAGE.roomFull);
-    });
+    };
+
+    socket.on("nameError", nameErrorHandler);
+    socket.on("roomIdEmpty", roomIdEmptyHandler);
+    socket.on("roomNotExists", roomNotExistsHandler);
+    socket.on("roomFull", roomFullHandler);
+
+    return () => {
+      socket.off("nameError", nameErrorHandler);
+      socket.off("roomIdEmpty", roomIdEmptyHandler);
+      socket.off("roomNotExists", roomNotExistsHandler);
+      socket.off("roomFull", roomFullHandler);
+    };
   }, []);
 
   return (
