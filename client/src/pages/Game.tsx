@@ -35,13 +35,21 @@ export default function Game() {
   };
 
   useEffect(() => {
-    socket.on("resetRequest", () => {
+    const resetRequestHandler = () => {
       setResetPopupVisible(true);
-    });
+    };
 
-    socket.on("resetRejected", () => {
+    const resetRejectedHandler = () => {
       toast(MESSAGE.resetRejected);
-    });
+    };
+
+    socket.on("resetRequest", resetRequestHandler);
+    socket.on("resetRejected", resetRejectedHandler);
+
+    return () => {
+      socket.off("resetRequest", resetRequestHandler);
+      socket.off("resetRejected", resetRejectedHandler);
+    };
   }, []);
 
   useEffect(() => {
