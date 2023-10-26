@@ -1,8 +1,7 @@
-import { toast } from "react-toastify";
-
 import type { Player } from "@/types";
-import { socket } from "@/utils/socket";
 import { MESSAGE } from "@/constants/messages";
+import { socket } from "@/utils/socket";
+import { showSingleToast } from "@/utils/toast";
 
 type Props = {
   roomId: string;
@@ -16,17 +15,13 @@ export default function Controls({ roomId, otherPlayer }: Props) {
 
   const copyRoomId = () => {
     navigator.clipboard.writeText(roomId);
-
-    const toastId = "roomIdCopied";
-    if (!toast.isActive(toastId)) {
-      toast(MESSAGE.roomIdCopied, { toastId });
-    }
+    showSingleToast("roomIdCopied", MESSAGE.roomIdCopied);
   };
 
   const requestReset = () => {
     socket.emit("resetRequest", roomId);
     if (otherPlayer) {
-      toast(MESSAGE.resetRequested);
+      showSingleToast("resetRequest", MESSAGE.resetRequested);
     }
   };
 
