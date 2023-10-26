@@ -1,13 +1,22 @@
-import PropTypes from "prop-types";
+import type { GameResult } from "@/utils/game";
+
+type Props = {
+  result: GameResult;
+  question: string;
+  okText: string;
+  cancelText: string;
+  onOk: () => void;
+  onCancel: () => void;
+};
 
 export default function Confirm({
   result,
   question,
-  okText,
-  cancelText,
+  okText = "Yes",
+  cancelText = "No",
   onOk,
   onCancel,
-}) {
+}: Props) {
   const fullText = result ? `${result} ${question}` : question;
 
   return (
@@ -20,17 +29,3 @@ export default function Confirm({
     </div>
   );
 }
-
-Confirm.defaultProps = {
-  okText: "Yes",
-  cancelText: "No",
-};
-
-Confirm.propTypes = {
-  result: PropTypes.string,
-  question: PropTypes.string.isRequired,
-  okText: PropTypes.string,
-  cancelText: PropTypes.string,
-  onOk: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-};
