@@ -85,7 +85,7 @@ const resetRequestHandler =
   (socket: Socket, io: Server) => (roomId: string) => {
     // Find the room
     const room = searchRoomById(roomId);
-    if (!room) {
+    if (!room || room.resetPending) {
       return;
     }
 
@@ -105,6 +105,7 @@ const resetRequestHandler =
     }
 
     // Ask for the other player's acceptance
+    room.resetPending = true;
     io.to(otherPlayer.playerId).emit("resetRequest");
   };
 
@@ -125,6 +126,7 @@ const resetAcceptHandler = (socket: Socket, io: Server) => (roomId: string) => {
   resetRoom(room);
 
   // Notify both players
+  room.resetPending = false;
   socket.emit("resetAccepted", room);
   io.to(otherPlayer.playerId).emit("resetAccepted", room);
 };
@@ -143,6 +145,7 @@ const resetRejectHandler = (socket: Socket, io: Server) => (roomId: string) => {
   }
 
   // Notify the other player
+  room.resetPending = false;
   io.to(otherPlayer.playerId).emit("resetRejected");
 };
 
