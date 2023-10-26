@@ -17,6 +17,7 @@ const createRoom = (firstPlayer: Player): Room => ({
   turn: MARK.X,
   highlightCells: [],
   endGame: false,
+  resetPending: false,
   moveCount: 0,
 });
 

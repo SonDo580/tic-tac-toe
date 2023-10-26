@@ -17,6 +17,7 @@ type Room = {
   turn: MARK;
   highlightCells: string[];
   endGame: boolean;
+  resetPending: boolean;
   moveCount: number;
   winnerId?: string;
 };
