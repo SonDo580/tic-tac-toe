@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import type { Room } from "@/types";
 import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
+import { showSingleToast } from "@/utils/toast";
 import { ACTION, initialState, reducer } from "./GameReducer";
 
 const GameContext = createContext(initialState);
@@ -52,7 +53,7 @@ const GameProvider = ({ children }: ProviderProps) => {
 
     const resetAcceptedHandler = (roomInfo: Room) => {
       initGame(roomInfo);
-      toast(MESSAGE.resetSuccessful);
+      showSingleToast("resetAccepted", MESSAGE.resetSuccessful);
     };
 
     socket.on("roomCreated", roomInitHandler);
