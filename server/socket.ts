@@ -10,6 +10,7 @@ import {
 import {
   moveHandler,
   rematchHandler,
+  resetRequestHandler,
   resetAcceptHandler,
   resetRejectHandler,
 } from "./controllers/game";
@@ -31,7 +32,7 @@ const runSocketIO = (httpServer: HttpServer) => {
     socket.on("disconnect", disconnectHandler(socket, io));
     socket.on("move", moveHandler(socket, io));
     socket.on("rematch", rematchHandler(socket));
-    socket.on("resetRequest", resetRejectHandler(socket, io));
+    socket.on("resetRequest", resetRequestHandler(socket, io));
     socket.on("resetAccept", resetAcceptHandler(socket, io));
     socket.on("resetReject", resetRejectHandler(socket, io));
   });
