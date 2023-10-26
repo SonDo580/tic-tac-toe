@@ -1,4 +1,3 @@
-import { UUID } from "crypto";
 import { MARK } from "../constants";
 
 type Cell = MARK | "";
