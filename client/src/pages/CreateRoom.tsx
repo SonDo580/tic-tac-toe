@@ -23,9 +23,15 @@ export default function CreateRoom() {
   };
 
   useEffect(() => {
-    socket.on("nameError", () => {
+    const nameErrorHandler = () => {
       setNameError(MESSAGE.nameError);
-    });
+    };
+
+    socket.on("nameError", nameErrorHandler);
+
+    return () => {
+      socket.off("nameError", nameErrorHandler);
+    };
   }, []);
 
   return (
