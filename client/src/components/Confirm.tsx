@@ -1,10 +1,10 @@
 import type { GameResult } from "@/utils/game";
 
 type Props = {
-  result: GameResult;
+  result?: GameResult;
   question: string;
-  okText: string;
-  cancelText: string;
+  okText?: string;
+  cancelText?: string;
   onOk: () => void;
   onCancel: () => void;
 };
