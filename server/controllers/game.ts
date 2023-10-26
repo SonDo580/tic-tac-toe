@@ -126,7 +126,6 @@ const resetAcceptHandler = (socket: Socket, io: Server) => (roomId: string) => {
   resetRoom(room);
 
   // Notify both players
-  room.resetPending = false;
   socket.emit("resetAccepted", room);
   io.to(otherPlayer.playerId).emit("resetAccepted", room);
 };

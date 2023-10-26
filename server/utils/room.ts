@@ -30,6 +30,7 @@ const resetRoom = (room: Room) => {
   room.highlightCells = [];
   room.turn = MARK.X;
   room.endGame = false;
+  room.resetPending = false;
   room.moveCount = 0;
 };
 
