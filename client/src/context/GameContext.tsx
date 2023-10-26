@@ -1,19 +1,23 @@
-import { createContext, useEffect, useReducer } from "react";
+import { ReactNode, createContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
+import type { Room } from "@/types";
 import { MESSAGE } from "@/constants/messages";
 import { socket } from "@/utils/socket";
 import { ACTION, initialState, reducer } from "./GameReducer";
 
-const GameContext = createContext();
+const GameContext = createContext(initialState);
 
-const GameProvider = ({ children }) => {
+type ProviderProps = {
+  children: ReactNode;
+};
+
+const GameProvider = ({ children }: ProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
-  const initGame = (roomInfo) => {
+  const initGame = (roomInfo: Room) => {
     dispatch({ type: ACTION.INIT_GAME, roomInfo });
   };
 
@@ -62,10 +66,6 @@ const GameProvider = ({ children }) => {
   }, []);
 
   return <GameContext.Provider value={state}>{children}</GameContext.Provider>;
-};
-
-GameProvider.propTypes = {
-  children: PropTypes.node,
 };
 
 export { GameContext, GameProvider };
