@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -8,11 +8,11 @@ import { socket } from "@/utils/socket";
 export default function CreateRoom() {
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
-  const changeName = (event) => {
+  const changeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (name.trim() === "") {
       setNameError(MESSAGE.nameError);
