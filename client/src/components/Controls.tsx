@@ -1,11 +1,15 @@
-import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
+import type { Player } from "@/types";
 import { socket } from "@/utils/socket";
-import { MARK } from "@/constants/index";
 import { MESSAGE } from "@/constants/messages";
 
-export default function Controls({ roomId, otherPlayer }) {
+type Props = {
+  roomId: string;
+  otherPlayer?: Player;
+};
+
+export default function Controls({ roomId, otherPlayer }: Props) {
   const leaveRoom = () => {
     socket.emit("leaveRoom", roomId);
   };
@@ -36,12 +40,3 @@ export default function Controls({ roomId, otherPlayer }) {
     </div>
   );
 }
-
-Controls.propTypes = {
-  roomId: PropTypes.string.isRequired,
-  otherPlayer: PropTypes.shape({
-    playerId: PropTypes.string.isRequired,
-    playerName: PropTypes.string.isRequired,
-    mark: PropTypes.oneOf([MARK.X, MARK.O]),
-  }),
-};
