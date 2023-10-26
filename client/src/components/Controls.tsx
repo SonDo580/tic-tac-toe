@@ -16,7 +16,11 @@ export default function Controls({ roomId, otherPlayer }: Props) {
 
   const copyRoomId = () => {
     navigator.clipboard.writeText(roomId);
-    toast(MESSAGE.roomIdCopied);
+
+    const toastId = "roomIdCopied";
+    if (!toast.isActive(toastId)) {
+      toast(MESSAGE.roomIdCopied, { toastId });
+    }
   };
 
   const requestReset = () => {
