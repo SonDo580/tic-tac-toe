@@ -5,6 +5,6 @@ const serverURL =
     ? "https://tictactoe-server-jvx4.onrender.com"
     : "http://localhost:5000";
 
-const socket = io(serverURL); // add live server URL later
+const socket = io(serverURL);
 
 export { socket };
