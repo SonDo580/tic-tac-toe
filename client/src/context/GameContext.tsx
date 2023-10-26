@@ -26,43 +26,54 @@ const GameProvider = ({ children }: ProviderProps) => {
   };
 
   useEffect(() => {
-    socket.on("roomCreated", (roomInfo) => {
+    const roomInitHandler = (roomInfo: Room) => {
       initGame(roomInfo);
       navigate("/game");
-    });
+    };
 
-    socket.on("roomJoined", (roomInfo) => {
-      initGame(roomInfo);
-      navigate("/game");
-    });
-
-    socket.on("opponentJoined", (roomInfo) => {
+    const opponentJoinedHandler = (roomInfo: Room) => {
       initGame(roomInfo);
       toast(MESSAGE.opponentJoined);
-    });
+    };
 
-    socket.on("roomLeaved", () => {
+    const roomLeavedHandler = () => {
       resetGame();
       navigate("/");
-    });
+    };
 
-    socket.on("opponentLeaved", (roomInfo) => {
+    const opponentLeavedHandler = (roomInfo: Room) => {
       initGame(roomInfo);
       toast(MESSAGE.opponentLeaved);
-    });
+    };
 
-    socket.on("boardUpdated", (roomInfo) => {
+    const roomUpdatedHandler = (roomInfo: Room) => {
       initGame(roomInfo);
-    });
+    };
 
-    socket.on("rematched", (roomInfo) => {
-      initGame(roomInfo);
-    });
-
-    socket.on("resetAccepted", (roomInfo) => {
+    const resetAcceptedHandler = (roomInfo: Room) => {
       initGame(roomInfo);
       toast(MESSAGE.resetSuccessful);
-    });
+    };
+
+    socket.on("roomCreated", roomInitHandler);
+    socket.on("roomJoined", roomInitHandler);
+    socket.on("opponentJoined", opponentJoinedHandler);
+    socket.on("roomLeaved", roomLeavedHandler);
+    socket.on("opponentLeaved", opponentLeavedHandler);
+    socket.on("boardUpdated", roomUpdatedHandler);
+    socket.on("rematched", roomUpdatedHandler);
+    socket.on("resetAccepted", resetAcceptedHandler);
+
+    return () => {
+      socket.off("roomCreated", roomInitHandler);
+      socket.off("roomJoined", roomInitHandler);
+      socket.off("opponentJoined", opponentJoinedHandler);
+      socket.off("roomLeaved", roomLeavedHandler);
+      socket.off("opponentLeaved", opponentLeavedHandler);
+      socket.off("boardUpdated", roomUpdatedHandler);
+      socket.off("rematched", roomUpdatedHandler);
+      socket.off("resetAccepted", resetAcceptedHandler);
+    };
   }, []);
 
   return <GameContext.Provider value={state}>{children}</GameContext.Provider>;
