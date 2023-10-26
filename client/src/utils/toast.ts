@@ -1,4 +1,4 @@
-import { ToastPosition } from "react-toastify";
+import { ToastPosition, toast } from "react-toastify";
 
 const toastConfig = {
   autoClose: 1500,
@@ -8,4 +8,10 @@ const toastConfig = {
   position: "top-center" as ToastPosition,
 };
 
-export { toastConfig };
+const showSingleToast = (toastId: string, message: string) => {
+  if (!toast.isActive(toastId)) {
+    toast(message, { toastId });
+  }
+};
+
+export { toastConfig, showSingleToast };
