@@ -32,6 +32,7 @@ Link website: https://sondm-tictactoe.netlify.app
 - ReactJS
 - NodeJS
 - Socket.io
+- TypeScript
 
 ## Installation
 
