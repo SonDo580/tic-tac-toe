@@ -1,8 +1,8 @@
 import { MARK } from "@/constants";
 
-type Cell = MARK | "";
+type CellContent = MARK | "";
 
-type Board = Cell[][];
+type Board = CellContent[][];
 
 type Player = {
   playerId: string;
@@ -21,4 +21,4 @@ type Room = {
   winnerId?: string;
 };
 
-export type { Board, Player, Room };
+export type { Board, Player, Room, CellContent };
