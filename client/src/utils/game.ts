@@ -1,6 +1,12 @@
+import type { Player } from "@/types";
 import { socket } from "@/utils/socket";
 
-const getPlayerRoles = (players) =>
+type GetPlayerRolesReturnType = {
+  thisPlayer?: Player;
+  otherPlayer?: Player;
+};
+
+const getPlayerRoles = (players: Player[]): GetPlayerRolesReturnType =>
   players.reduce((acc, player) => {
     if (socket.id === player.playerId) {
       return { ...acc, thisPlayer: player };
@@ -9,10 +15,10 @@ const getPlayerRoles = (players) =>
     }
   }, {});
 
-const getTurnDisplay = (allowMove) =>
+const getTurnDisplay = (allowMove: boolean) =>
   allowMove ? "Your turn" : "Opponent's turn";
 
-const getGameResult = ({ winnerId, thisPlayer }) => {
+const getGameResult = (thisPlayer: Player, winnerId?: string) => {
   if (!winnerId) {
     return "Tie!";
   }
