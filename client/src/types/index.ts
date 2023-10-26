@@ -11,13 +11,13 @@ type Player = {
 };
 
 type Room = {
-  roomId: string;
-  players: Player[];
-  board: Board;
-  turn: MARK;
-  highlightCells: string[];
-  endGame: boolean;
-  moveCount: number;
+  roomId?: string;
+  players?: Player[];
+  board?: Board;
+  turn?: MARK;
+  highlightCells?: string[];
+  endGame?: boolean;
+  moveCount?: number;
   winnerId?: string;
 };
 
