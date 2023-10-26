@@ -4,8 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./App.scss";
 import { toastConfig } from "@/utils/toast";
-import Starter from "@/pages/Starter";
 import Game from "@/pages/Game";
+import Starter from "@/pages/Starter";
 import CreateRoom from "@/pages/CreateRoom";
 import JoinRoom from "@/pages/JoinRoom";
 
