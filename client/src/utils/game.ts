@@ -28,4 +28,7 @@ const getGameResult = (thisPlayer: Player, winnerId?: string) => {
   return "You lost!";
 };
 
+type GameResult = ReturnType<typeof getGameResult>;
+
 export { getPlayerRoles, getTurnDisplay, getGameResult };
+export type { GameResult };
