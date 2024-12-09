@@ -20,30 +20,27 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-    
-      - name: Install yarn globally
-        run: npm i -g yarn
 
   client:
     runs-on: ubuntu-latest
     needs: setup
     steps:
       - name: Install client dependencies
-        working-directory: client
-        run: yarn
+        working-directory: ./client
+        run: npm i
 
       - name: Build client
-        working-directory: client
-        run: yarn build
+        working-directory: ./client
+        run: npm run build
 
   server:
     runs-on: ubuntu-latest
     needs: setup
     steps:
       - name: Install server dependencies
-        working-directory: server
-        run: yarn
+        working-directory: ./server
+        run: npm i
 
       - name: Build server
-        working-directory: server
-        run: yarn build
+        working-directory: ./server
+        run: npm run build
