@@ -13,42 +13,32 @@ jobs:
     name: Setup Environment
     runs-on: ubuntu-latest
     steps:
+      # Setup
       - name: Checkout code
         uses: actions/checkout@v3
-
-      # Debugging: List files in the root directory
-      - name: List files in the root directory
-        run: ls -R
 
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
-  client:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      # Debugging: List files in the client directory
-      - name: List files in the client directory
-        run: ls -R ./client
+      - name: Install yarn globally
+        run: npm i -g yarn
 
+      # Client
       - name: Install client dependencies
         working-directory: ./client
-        run: npm i
+        run: yarn
 
       - name: Build client
         working-directory: ./client
-        run: npm run build
+        run: yarn build
 
-  server:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
+      # Server
       - name: Install server dependencies
         working-directory: ./server
-        run: npm i
+        run: yarn
 
       - name: Build server
         working-directory: ./server
-        run: npm run build
+        run: yarn build
