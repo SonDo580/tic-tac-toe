@@ -29,11 +29,11 @@ jobs:
     needs: setup
     steps:
       - name: Install client dependencies
-        working-directory: ./client
+        working-directory: client
         run: yarn
 
       - name: Build client
-        working-directory: ./client
+        working-directory: client
         run: yarn build
 
   server:
@@ -41,9 +41,9 @@ jobs:
     needs: setup
     steps:
       - name: Install server dependencies
-        working-directory: ./server
+        working-directory: server
         run: yarn
 
       - name: Build server
-        working-directory: ./server
+        working-directory: server
         run: yarn build
