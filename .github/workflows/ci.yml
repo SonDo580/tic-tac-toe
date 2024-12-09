@@ -9,8 +9,8 @@ on:
       - test-workflow
 
 jobs:
-  setup:
-    name: Setup Environment
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       # Setup
